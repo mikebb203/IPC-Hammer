@@ -250,7 +250,7 @@ namespace PcmHacking
     
 
 
-            return false;
+            return true;
         }
 
         private UInt32 GetTotalSize(FlashChip chip, BlockType relevantBlocks)
