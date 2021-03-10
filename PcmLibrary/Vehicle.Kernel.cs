@@ -666,11 +666,11 @@ namespace PcmHacking
                     continue;
                 }
 
-               /// if (await this.WaitForSuccess(this.protocol.ParseUploadResponse1, cancellationToken))
-               /// {
+               if (await this.WaitForSuccess(this.protocol.ParseUploadResponse2, cancellationToken))
+               {
                     /// return Response.Create(ResponseStatus.Success, true, retryCount);
-               ///     continue;
-               /// }
+                   ///  continue;
+               }
                 
                 if (await this.WaitForSuccess(this.protocol.ParseUploadResponse1, cancellationToken))
                 {

@@ -180,46 +180,46 @@ namespace PcmHacking
 
             if (!await this.device.SendMessage(this.protocol.CreateStepperRequest4()))
             {
-                return Response.Create(ResponseStatus.Timeout, "Unknown. Request for block 3 failed.");
+                return Response.Create(ResponseStatus.Timeout, "Unknown. Request for block 4 failed.");
             }
 
             Message response4 = await this.device.ReceiveMessage();
             if (response3 == null)
             {
-                return Response.Create(ResponseStatus.Timeout, "Unknown. No response to request for block 3.");
+                return Response.Create(ResponseStatus.Timeout, "Unknown. No response to request for block 4.");
             }
 
             if (!await this.device.SendMessage(this.protocol.CreateStepperRequest5()))
             {
-                return Response.Create(ResponseStatus.Timeout, "Unknown. Request for block 3 failed.");
+                return Response.Create(ResponseStatus.Timeout, "Unknown. Request for block 5 failed.");
             }
 
             Message response5 = await this.device.ReceiveMessage();
             if (response3 == null)
             {
-                return Response.Create(ResponseStatus.Timeout, "Unknown. No response to request for block 3.");
+                return Response.Create(ResponseStatus.Timeout, "Unknown. No response to request for block 5.");
             }
 
             if (!await this.device.SendMessage(this.protocol.CreateStepperRequest6()))
             {
-                return Response.Create(ResponseStatus.Timeout, "Unknown. Request for block 3 failed.");
+                return Response.Create(ResponseStatus.Timeout, "Unknown. Request for block 6 failed.");
             }
 
             Message response6 = await this.device.ReceiveMessage();
             if (response3 == null)
             {
-                return Response.Create(ResponseStatus.Timeout, "Unknown. No response to request for block 3.");
+                return Response.Create(ResponseStatus.Timeout, "Unknown. No response to request for block 6.");
             }
 
             if (!await this.device.SendMessage(this.protocol.CreateStepperRequest7()))
             {
-                return Response.Create(ResponseStatus.Timeout, "Unknown. Request for block 3 failed.");
+                return Response.Create(ResponseStatus.Timeout, "Unknown. Request for block 7 failed.");
             }
 
             Message response7 = await this.device.ReceiveMessage();
             if (response3 == null)
             {
-                return Response.Create(ResponseStatus.Timeout, "Unknown. No response to request for block 3.");
+                return Response.Create(ResponseStatus.Timeout, "Unknown. No response to request for block 7.");
             }
 
 
@@ -262,16 +262,16 @@ namespace PcmHacking
         }
 
         /// <summary>
-        /// Update the PCM's VIN
+        /// Update the IPC Stepper Cals
         /// </summary>
         /// <remarks>
-        /// Requires that the PCM is already unlocked
+        /// Requires that the IPC is already unlocked
         /// </remarks>
         public async Task<Response<bool>> UpdateStepperCals(string steppercal)
         {
             this.device.ClearMessageQueue();
 
-            if (steppercal.Length != 16) // should never happen, but....
+            if (steppercal.Length != 32) // should never happen, but....
             {
                 this.logger.AddUserMessage("Stepper Calibtration " + steppercal + " is not 16 Bytes long!");
                 return Response.Create(ResponseStatus.Error, false);
@@ -279,14 +279,37 @@ namespace PcmHacking
 
             this.logger.AddUserMessage("Changing Stepper Calibration to " + steppercal);
 
-            byte[] bvin = Encoding.ASCII.GetBytes(steppercal);
-            byte[] speed = new byte[3] { bvin[0], bvin[1], bvin[2] };
-            byte[] tach = new byte[3] { bvin[3], bvin[4], bvin[5] };
-            byte[] oil = new byte[2] { bvin[6], bvin[7] };
-            byte[] fuel = new byte[2] { bvin[8], bvin[9] };
-            byte[] coolant = new byte[2] { bvin[10], bvin[11] };
-            byte[] volt = new byte[2] { bvin[12], bvin[13] };
-            byte[] trans = new byte[2] { bvin[14], bvin[15] };
+            ///byte[] bvin = Encoding.Unicode.GetBytes(steppercal);
+            var speedometer = steppercal.Substring(0, 6);
+            var speedint =  UInt32.Parse(speedometer, System.Globalization.NumberStyles.HexNumber) ;
+            byte[] b = BitConverter.GetBytes(speedint);
+            var tachometer = steppercal.Substring(6, 6);
+            var tachint = UInt32.Parse(tachometer, System.Globalization.NumberStyles.HexNumber);
+            byte[] c = BitConverter.GetBytes(tachint);
+            var oilstep = steppercal.Substring(24, 4);
+            var oilint = UInt16.Parse(oilstep, System.Globalization.NumberStyles.HexNumber);
+            byte[] d = BitConverter.GetBytes(oilint);
+            var fuelstep = steppercal.Substring(12, 4);
+            var fuelint = UInt16.Parse(fuelstep, System.Globalization.NumberStyles.HexNumber);
+            byte[] e = BitConverter.GetBytes(fuelint);
+            var coolantstep = steppercal.Substring(16, 4);
+            var coolantint = UInt16.Parse(coolantstep, System.Globalization.NumberStyles.HexNumber);
+            byte[] f = BitConverter.GetBytes(coolantint);
+            var voltstep = steppercal.Substring(20, 4);
+            var voltint = UInt16.Parse(voltstep, System.Globalization.NumberStyles.HexNumber);
+            byte[] g = BitConverter.GetBytes(voltint);
+            var transstep = steppercal.Substring(28, 4);
+            var transint = UInt16.Parse(transstep, System.Globalization.NumberStyles.HexNumber);
+            byte[] h = BitConverter.GetBytes(transint);
+
+
+            byte[] speed = new byte[3] { b[2], b[1], b[0] };
+            byte[] tach = new byte[3] { c[2], c[1], c[0] };
+            byte[] oil = new byte[2] { d[1], d[0] };
+            byte[] fuel = new byte[2] { e[1], e[0] };
+            byte[] coolant = new byte[2] { f[1], f[0] };
+            byte[] volt = new byte[2] { g[1], g[0] };
+            byte[] trans = new byte[2] { h[1], h[0] };
             this.logger.AddUserMessage("Block 1");
             Response<bool> block1 = await WriteBlock(BlockIdIPC.SpeedoCal, speed);
             if (block1.Status != ResponseStatus.Success) return Response.Create(ResponseStatus.Error, false);
@@ -308,7 +331,7 @@ namespace PcmHacking
             this.logger.AddUserMessage("Block 7");
             Response<bool> block7 = await WriteBlock(BlockIdIPC.TransTempCal, trans);
             if (block1.Status != ResponseStatus.Success) return Response.Create(ResponseStatus.Error, false);
-            this.logger.AddUserMessage("Block 8");
+            
 
             return Response.Create(ResponseStatus.Success, true);
         }

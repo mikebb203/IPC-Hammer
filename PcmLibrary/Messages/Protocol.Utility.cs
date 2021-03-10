@@ -173,6 +173,53 @@ namespace PcmHacking
             return Response.Create(ResponseStatus.UnexpectedResponse, false);
         }
 
+        public Response<bool> DoSimpleValidation3(Message message, byte priority, byte mode, byte first, byte wait, params byte[] data)
+        {
+            byte[] actual = message.GetBytes();
+
+            ResponseStatus status;
+
+            byte[] success = new byte[] { priority, DeviceId.Tool, DeviceId.Pcm, (byte)(mode + 0x40), first, wait };
+            if (this.TryVerifyInitialBytes(actual, success, out status))
+            {
+                if (data != null && data.Length > 0)
+                {
+                    for (int index = 0; index < data.Length; index++)
+                    {
+                        const int headBytes = 4;
+                        int actualLength = actual.Length;
+                        int expectedLength = data.Length + headBytes;
+                        if (actualLength >= expectedLength)
+                        {
+                            if (actual[headBytes + index] == data[index])
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                return Response.Create(ResponseStatus.UnexpectedResponse, false);
+                            }
+                        }
+                        else
+                        {
+                            return Response.Create(ResponseStatus.Truncated, false);
+                        }
+                    }
+                }
+
+                return Response.Create(ResponseStatus.Success, true);
+            }
+
+            byte[] failure = new byte[] { priority, DeviceId.Tool, DeviceId.Pcm, 0x7F, mode };
+            if (this.TryVerifyInitialBytes(actual, failure, out status))
+            {
+                return Response.Create(ResponseStatus.Refused, false);
+            }
+
+            return Response.Create(ResponseStatus.UnexpectedResponse, false);
+        }
+
+
         /// <summary>
         /// Confirm that the first portion of the 'actual' array of bytes matches the 'expected' array of bytes.
         /// </summary>

@@ -328,7 +328,7 @@ namespace PcmHacking
             this.IpctestButton.Enabled = false;
             this.exitKernelButton.Enabled = false;
             this.reinitializeButton.Enabled = false;
-            this.Checksum_test.Enabled = false;
+            this.Modify_options.Enabled = false;
             this.menuItemEnable4xReadWrite.Enabled = false;
         }
 
@@ -353,7 +353,7 @@ namespace PcmHacking
                 this.IpctestButton.Enabled = true;
                 this.exitKernelButton.Enabled = true;
                 this.reinitializeButton.Enabled = true;
-                this.Checksum_test.Enabled = true;
+                this.Modify_options.Enabled = true;
 
                 this.menuItemEnable4xReadWrite.Enabled = true;
             });
@@ -628,11 +628,11 @@ namespace PcmHacking
                     this.DisableUserInput();
                     this.AddUserMessage("IPC test gauges.");
                     var sweepResponse = await this.Vehicle.SweepGauges();
-                    System.Threading.Thread.Sleep(11000);
+                    System.Threading.Thread.Sleep(7000);
 
                     this.AddUserMessage("IPC test lights.");
                     var ledResponse = await this.Vehicle.LEDson();
-                    System.Threading.Thread.Sleep(11000);
+                    System.Threading.Thread.Sleep(7000);
 
                     var displayResponse = await this.Vehicle.Displayon();
                     this.AddUserMessage("IPC test display pixels.");
@@ -810,54 +810,24 @@ namespace PcmHacking
 
                 PcmInfo info = new PcmInfo(osidResponse.Value);
 
-                var vinResponse = await this.Vehicle.QueryStepper();
-                var speedometer = vinResponse.Value.Substring(0, 3);
-                var tachometer = vinResponse.Value.Substring(3, 3);
-                var fuel = vinResponse.Value.Substring(6, 2);
-                var coolant = vinResponse.Value.Substring(8, 2);
-                var volt = vinResponse.Value.Substring(10, 2);
-                var oil = vinResponse.Value.Substring(12, 2);
-                var trans = vinResponse.Value.Substring(14, 2);
-                if (vinResponse.Status != ResponseStatus.Success)
+                var stepperResponse = await this.Vehicle.QueryStepper();
+  
+                if (stepperResponse.Status != ResponseStatus.Success)
                 {
-                    this.AddUserMessage("Stepper Calibration query failed: " + vinResponse.Status.ToString());
+                    this.AddUserMessage("Stepper Calibration query failed: " + stepperResponse.Status.ToString());
                     return;
                 }
 
-                DialogBoxes.StepperForm vinForm = new DialogBoxes.StepperForm();
+                DialogBoxes.StepperForm stepperForm = new DialogBoxes.StepperForm(this.Vehicle, this);
 
-                vinForm.Stepper = vinResponse.Value;
-                vinForm.Speedometer = speedometer;
-                vinForm.Tachometer = tachometer;
-                vinForm.Oil = oil;
-                vinForm.Fuel = fuel;
-                vinForm.Coolant = coolant;
-                vinForm.Volt = volt;
-                vinForm.Trans = trans;
-                DialogResult dialogResult = vinForm.ShowDialog();
+
+                stepperForm.Stepper = stepperResponse.Value;
+
+                DialogResult dialogResult = stepperForm.ShowDialog();
 
                 if (dialogResult == DialogResult.OK)
                 {
 
-
-
-                    bool unlocked = await this.Vehicle.UnlockEcu(info.KeyAlgorithm);
-                    if (!unlocked)
-                    {
-                        this.AddUserMessage("Unable to unlock PCM.");
-                        return;
-                    }
-
-                    Response<bool> vinmodified = await this.Vehicle.UpdateStepperCals(vinForm.Stepper.Trim());
-                    if (vinmodified.Value)
-                    {
-                        this.AddUserMessage("Stepper Calibration successfully updated to " + vinForm.Stepper);
-                        MessageBox.Show("Stepper Calibration updated to " + vinForm.Stepper + " successfully.", "Good news.", MessageBoxButtons.OK);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Unable to change the Stepper Calibration to " + vinForm.Stepper + ". Error: " + vinmodified.Status, "Bad news.", MessageBoxButtons.OK);
-                    }
                 }
             }
             catch (Exception exception)
@@ -1487,6 +1457,9 @@ namespace PcmHacking
             }
         }
 
-       
+        private void Modify_options_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

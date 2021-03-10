@@ -424,7 +424,22 @@ namespace PcmHacking
             Buffer.BlockCopy(response5, 5, vinBytes, 10, 2);
             Buffer.BlockCopy(response6, 5, vinBytes, 12, 2);
             Buffer.BlockCopy(response7, 5, vinBytes, 14, 2);
-            string vin = System.Text.Encoding.ASCII.GetString(vinBytes);
+            int resp1 = (vinBytes[2] << 0) | (vinBytes[1] << 8) | (vinBytes[0] << 16);
+            int resp2 = (vinBytes[5] << 0) | (vinBytes[4] << 8) | (vinBytes[3] << 16);
+            int resp3 = (vinBytes[7] << 0) | (vinBytes[6] << 8);
+            int resp4 = (vinBytes[9] << 0) | (vinBytes[8] << 8);
+            int resp5 = (vinBytes[11] << 0) | (vinBytes[10] << 8);
+            int resp6 = (vinBytes[13] << 0) | (vinBytes[12] << 8);
+            int resp7 = (vinBytes[15] << 0) | (vinBytes[14] << 8);
+            var respt1 = resp1.ToString("X6");
+            var respt2 = resp2.ToString("X6");
+            var respt3 = resp3.ToString("X4");
+            var respt4 = resp4.ToString("X4");
+            var respt5 = resp5.ToString("X4");
+            var respt6 = resp6.ToString("X4");
+            var respt7 = resp7.ToString("X4");
+            var vin = string.Concat(respt1, respt2, respt3, respt4, respt5, respt6, respt7);
+
             return Response.Create(ResponseStatus.Success, vin);
             
         }

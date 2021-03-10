@@ -144,6 +144,10 @@ namespace PcmHacking
             return this.DoSimpleValidation2(message, Priority.Physical0High, Mode.PCMUpload, 0x00, 0x73, 0x86);
         }
 
+        public Response<bool> ParseUploadResponse2(Message message)
+        {
+            return this.DoSimpleValidation3(message, Priority.Physical0High, Mode.PCMUpload, 0x00, 0x78);
+        }
         /// <summary>
         /// Create a request to read an arbitrary address range.
         /// </summary>

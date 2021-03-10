@@ -86,6 +86,12 @@
     <Compile Include="DialogBoxes\DelayDialogBox.Designer.cs">
       <DependentUpon>DelayDialogBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="DialogBoxes\OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogBoxes\OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogBoxes\StepperForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +114,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DialogBoxes\DelayDialogBox.resx">
       <DependentUpon>DelayDialogBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogBoxes\OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogBoxes\StepperForm.resx">
       <DependentUpon>StepperForm.cs</DependentUpon>

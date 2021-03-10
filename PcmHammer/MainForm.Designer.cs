@@ -36,6 +36,7 @@
             this.deviceDescription = new System.Windows.Forms.Label();
             this.operationsBox = new System.Windows.Forms.GroupBox();
             this.Checksum_test = new System.Windows.Forms.Button();
+            this.Modify_options = new System.Windows.Forms.Button();
             this.adjustStepperCalibration = new System.Windows.Forms.Button();
             this.exitKernelButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
@@ -116,6 +117,7 @@
             this.operationsBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.operationsBox.Controls.Add(this.Checksum_test);
+            this.operationsBox.Controls.Add(this.Modify_options);
             this.operationsBox.Controls.Add(this.adjustStepperCalibration);
             this.operationsBox.Controls.Add(this.exitKernelButton);
             this.operationsBox.Controls.Add(this.cancelButton);
@@ -134,14 +136,25 @@
             // 
             // Checksum_test
             // 
-            this.Checksum_test.Location = new System.Drawing.Point(4, 163);
+            this.Checksum_test.Location = new System.Drawing.Point(4, 192);
             this.Checksum_test.Margin = new System.Windows.Forms.Padding(2);
             this.Checksum_test.Name = "Checksum_test";
             this.Checksum_test.Size = new System.Drawing.Size(216, 25);
-            this.Checksum_test.TabIndex = 8;
+            this.Checksum_test.TabIndex = 11;
             this.Checksum_test.Text = "Checksum Test";
             this.Checksum_test.UseVisualStyleBackColor = true;
             this.Checksum_test.Click += new System.EventHandler(this.Checksum_test_Click);
+            // 
+            // Modify_options
+            // 
+            this.Modify_options.Location = new System.Drawing.Point(4, 163);
+            this.Modify_options.Margin = new System.Windows.Forms.Padding(2);
+            this.Modify_options.Name = "Modify_options";
+            this.Modify_options.Size = new System.Drawing.Size(216, 25);
+            this.Modify_options.TabIndex = 8;
+            this.Modify_options.Text = "Modify Options";
+            this.Modify_options.UseVisualStyleBackColor = true;
+            this.Modify_options.Click += new System.EventHandler(this.Modify_options_Click);
             // 
             // adjustStepperCalibration
             // 
@@ -352,7 +365,7 @@
             // modifyVINToolStripMenuItem
             // 
             this.modifyVINToolStripMenuItem.Name = "modifyVINToolStripMenuItem";
-            this.modifyVINToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.modifyVINToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.modifyVINToolStripMenuItem.Text = "&Change VIN";
             this.modifyVINToolStripMenuItem.Click += new System.EventHandler(this.modifyVinButton_Click);
             // 
@@ -432,6 +445,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemTools;
         private System.Windows.Forms.ToolStripMenuItem modifyVINToolStripMenuItem;
         private System.Windows.Forms.Button adjustStepperCalibration;
+        private System.Windows.Forms.Button Modify_options;
         private System.Windows.Forms.Button Checksum_test;
     }
 }
