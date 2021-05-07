@@ -35,6 +35,7 @@
             this.selectButton = new System.Windows.Forms.Button();
             this.deviceDescription = new System.Windows.Forms.Label();
             this.operationsBox = new System.Windows.Forms.GroupBox();
+            this.Modify_options99 = new System.Windows.Forms.Button();
             this.Checksum_test = new System.Windows.Forms.Button();
             this.Modify_options = new System.Windows.Forms.Button();
             this.adjustStepperCalibration = new System.Windows.Forms.Button();
@@ -56,6 +57,7 @@
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.menuItemTools = new System.Windows.Forms.ToolStripMenuItem();
             this.modifyVINToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mileageCorrectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemEnable4xReadWrite = new System.Windows.Forms.ToolStripMenuItem();
             this.interfaceBox.SuspendLayout();
@@ -116,6 +118,7 @@
             // 
             this.operationsBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.operationsBox.Controls.Add(this.Modify_options99);
             this.operationsBox.Controls.Add(this.Checksum_test);
             this.operationsBox.Controls.Add(this.Modify_options);
             this.operationsBox.Controls.Add(this.adjustStepperCalibration);
@@ -134,9 +137,19 @@
             this.operationsBox.TabStop = false;
             this.operationsBox.Text = "Operations";
             // 
+            // Modify_options99
+            // 
+            this.Modify_options99.Location = new System.Drawing.Point(4, 194);
+            this.Modify_options99.Name = "Modify_options99";
+            this.Modify_options99.Size = new System.Drawing.Size(214, 23);
+            this.Modify_options99.TabIndex = 12;
+            this.Modify_options99.Text = "Modify Options 99-02";
+            this.Modify_options99.UseVisualStyleBackColor = true;
+            this.Modify_options99.Click += new System.EventHandler(this.Modify_options99_Click);
+            // 
             // Checksum_test
             // 
-            this.Checksum_test.Location = new System.Drawing.Point(4, 192);
+            this.Checksum_test.Location = new System.Drawing.Point(4, 222);
             this.Checksum_test.Margin = new System.Windows.Forms.Padding(2);
             this.Checksum_test.Name = "Checksum_test";
             this.Checksum_test.Size = new System.Drawing.Size(216, 25);
@@ -152,7 +165,7 @@
             this.Modify_options.Name = "Modify_options";
             this.Modify_options.Size = new System.Drawing.Size(216, 25);
             this.Modify_options.TabIndex = 8;
-            this.Modify_options.Text = "Modify Options";
+            this.Modify_options.Text = "Modify Options 03-07";
             this.Modify_options.UseVisualStyleBackColor = true;
             this.Modify_options.Click += new System.EventHandler(this.Modify_options_Click);
             // 
@@ -357,7 +370,8 @@
             // menuItemTools
             // 
             this.menuItemTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.modifyVINToolStripMenuItem});
+            this.modifyVINToolStripMenuItem,
+            this.mileageCorrectionToolStripMenuItem});
             this.menuItemTools.Name = "menuItemTools";
             this.menuItemTools.Size = new System.Drawing.Size(48, 20);
             this.menuItemTools.Text = "&Tools";
@@ -365,9 +379,16 @@
             // modifyVINToolStripMenuItem
             // 
             this.modifyVINToolStripMenuItem.Name = "modifyVINToolStripMenuItem";
-            this.modifyVINToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.modifyVINToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.modifyVINToolStripMenuItem.Text = "&Change VIN";
             this.modifyVINToolStripMenuItem.Click += new System.EventHandler(this.modifyVinButton_Click);
+            // 
+            // mileageCorrectionToolStripMenuItem
+            // 
+            this.mileageCorrectionToolStripMenuItem.Name = "mileageCorrectionToolStripMenuItem";
+            this.mileageCorrectionToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.mileageCorrectionToolStripMenuItem.Text = "Mileage Correction";
+            this.mileageCorrectionToolStripMenuItem.Click += new System.EventHandler(this.mileageCorrectionToolStripMenuItem_Click);
             // 
             // menuItemOptions
             // 
@@ -447,6 +468,8 @@
         private System.Windows.Forms.Button adjustStepperCalibration;
         private System.Windows.Forms.Button Modify_options;
         private System.Windows.Forms.Button Checksum_test;
+        private System.Windows.Forms.ToolStripMenuItem mileageCorrectionToolStripMenuItem;
+        private System.Windows.Forms.Button Modify_options99;
     }
 }
 

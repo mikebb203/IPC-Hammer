@@ -364,6 +364,37 @@ namespace PcmHacking
         {
             return CreateReadRequest(BlockIdIPC.TransTempCal);
         }
+        /// <summary>
+        /// Create a request to read the IPC Options).
+        /// </summary>
+        public Message CreateOptionsRequest()
+        {
+            return CreateReadRequest(BlockIdIPC.Options);
+        }
+
+        public Response<string> ParseOptionsresponse(Message responseMessage)
+        {
+            string result = "Unknown";
+            ResponseStatus status;
+            byte[] response = responseMessage.GetBytes();
+
+            byte[] expected = new byte[] { 0x6C, DeviceId.Tool, DeviceId.Pcm, 0x7C, BlockIdIPC.Options };
+            if (!TryVerifyInitialBytes(response, expected, out status))
+            {
+                return Response.Create(status, result);
+            }
+
+            ///string options = response[5].ToString();
+            ///string options1 = response[6].ToString();
+            byte[] optionBytes = new byte[2];
+            Buffer.BlockCopy(response, 5, optionBytes, 0, 2);
+            int resp = (optionBytes[1] << 0) | (optionBytes[0] << 8);
+            var Options = resp.ToString("X4");
+            ///var Options = string.Concat(options, options1);
+            return Response.Create(ResponseStatus.Success, Options);
+        }
+
+
 
         /// <summary>
         /// Parse the responses to the three requests for VIN information.

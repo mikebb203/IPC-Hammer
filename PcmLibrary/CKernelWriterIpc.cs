@@ -143,7 +143,7 @@ namespace PcmHacking
                             break;
                     }
 
-                    this.logger.AddUserMessage("https://pcmhacking.net/forums/viewtopic.php?f=42&t=6080");
+                    ///this.logger.AddUserMessage("https://pcmhacking.net/forums/viewtopic.php?f=42&t=6080");
                     this.logger.AddUserMessage(string.Empty);
                     this.logger.AddUserMessage(exception.ToString());
                 }

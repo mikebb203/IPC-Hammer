@@ -320,7 +320,7 @@ namespace PcmHacking
             // (rather than via the parent GroupBox) because we sometimes want
             // to enable the re-initialize operation while the others are disabled.
             this.modifyVINToolStripMenuItem.Enabled = false;
-                        
+            this.mileageCorrectionToolStripMenuItem.Enabled = false;
             this.readPropertiesButton.Enabled = false;
             this.adjustStepperCalibration.Enabled = false;
             this.writeCalibrationButton.Enabled = false;
@@ -329,7 +329,9 @@ namespace PcmHacking
             this.exitKernelButton.Enabled = false;
             this.reinitializeButton.Enabled = false;
             this.Modify_options.Enabled = false;
+            this.Modify_options99.Enabled = false;
             this.menuItemEnable4xReadWrite.Enabled = false;
+            this.Checksum_test.Enabled = false;
         }
 
         /// <summary>
@@ -344,8 +346,8 @@ namespace PcmHacking
                 // The operation buttons have to be enabled/disabled individually
                 // (rather than via the parent GroupBox) because we sometimes want
                 // to enable the re-initialize operation while the others are disabled.
-                this.modifyVINToolStripMenuItem.Enabled = true;
-                
+                this.modifyVINToolStripMenuItem.Enabled = false;
+                this.mileageCorrectionToolStripMenuItem.Enabled = true;
                 this.readPropertiesButton.Enabled = true;
                 this.adjustStepperCalibration.Enabled = true;
                 this.writeCalibrationButton.Enabled = true;
@@ -354,6 +356,7 @@ namespace PcmHacking
                 this.exitKernelButton.Enabled = true;
                 this.reinitializeButton.Enabled = true;
                 this.Modify_options.Enabled = true;
+                this.Checksum_test.Enabled = true;
 
                 this.menuItemEnable4xReadWrite.Enabled = true;
             });
@@ -560,8 +563,8 @@ namespace PcmHacking
             {
                 DialogResult result = MessageBox.Show(
                     "This software is still new, and it is not as reliable as commercial software." + Environment.NewLine +
-                    "The PCM can be rendered unusuable, and special tools may be needed to make the PCM work again." + Environment.NewLine +
-                    "If your PCM stops working, will that make your life difficult?",
+                    "The IPC can be rendered unusuable, and special tools may be needed to make the IPC work again." + Environment.NewLine +
+                    "If your IPC stops working, will that make your life difficult?",
                     "Answer carefully...",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning,
@@ -569,7 +572,7 @@ namespace PcmHacking
 
                 if (result == DialogResult.Yes)
                 {
-                    this.AddUserMessage("Please try again with a less important PCM.");
+                    this.AddUserMessage("Please try again with a less important IPC.");
                 }
                 else
                 {
@@ -589,8 +592,8 @@ namespace PcmHacking
             {
                 DialogResult result = MessageBox.Show(
                     "This software is still new, and it is not as reliable as commercial software." + Environment.NewLine +
-                    "The PCM can be rendered unusuable, and special tools may be needed to make the PCM work again." + Environment.NewLine +
-                    "If your PCM stops working, will that make your life difficult?",
+                    "The IPC can be rendered unusuable, and special tools may be needed to make the IPC work again." + Environment.NewLine +
+                    "If your IPC stops working, will that make your life difficult?",
                     "Answer carefully...",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning,
@@ -627,14 +630,14 @@ namespace PcmHacking
                 {
                     this.DisableUserInput();
                     this.AddUserMessage("IPC test gauges.");
-                    var sweepResponse = await this.Vehicle.SweepGauges();
-                    System.Threading.Thread.Sleep(7000);
+                    await this.Vehicle.SweepGauges();
+                    System.Threading.Thread.Sleep(1000);
 
                     this.AddUserMessage("IPC test lights.");
-                    var ledResponse = await this.Vehicle.LEDson();
-                    System.Threading.Thread.Sleep(7000);
+                    await this.Vehicle.LEDson();
+                    System.Threading.Thread.Sleep(1000);
 
-                    var displayResponse = await this.Vehicle.Displayon();
+                    await this.Vehicle.Displayon();
                     this.AddUserMessage("IPC test display pixels.");
                 }
                 catch (Exception exception)
@@ -1328,7 +1331,52 @@ namespace PcmHacking
                             return;
                         }
                     }
+                    switch (writeTypeIpc)
+                    {
+                        case WriteTypeIpc.Ipc1:  /// OS + Calibration
+                            int calid = 0;
+                            if (image.Length == 16 * 1024)
+                            {
+                                calid += image[0x004] << 24;
+                                calid += image[0x005] << 16;
+                                calid += image[0x006] << 8;
+                                calid += image[0x007] << 0;
+                            }
 
+                            OsInfo info = new OsInfo(calid);
+                            
+                                                        
+                            string filename = info.OsID;
+                            string dir = Path.GetDirectoryName(path);
+                            path = Path.Combine(dir, filename);
+
+                            byte[] imageos;
+                            using (Stream stream = File.OpenRead(path))
+                            {
+                                imageos = new byte[stream.Length];
+                                int bytesRead = await stream.ReadAsync(imageos, 0, (int)stream.Length);
+                                if (bytesRead != stream.Length)
+                                {
+                                    // If this happens too much, we should try looping rather than reading the whole file in one shot.
+                                    this.AddUserMessage("Unable to load OS file.");
+                                    return;
+                                }
+                            }
+
+                            var s = new MemoryStream();
+                            s.Write(imageos, 0, imageos.Length);
+                            s.Write(image, 0, image.Length);
+                            var imageoscal = s.ToArray();
+                            
+                            image = imageoscal;
+                            break;
+
+                        case WriteTypeIpc.Ipc:  /// Calibration
+                            
+                            break;
+                        default:
+                            throw new InvalidDataException("Unsuppported operation type: " + writeTypeIpc.ToString());
+                    }
                     // Sanity checks. 
                     FileValidator validator = new FileValidator(image, this);
                     if (!validator.IsValid())
@@ -1342,16 +1390,14 @@ namespace PcmHacking
                     int keyAlgorithm = 0;
                     bool needToCheckOperatingSystem = true;
 
-                    this.AddUserMessage("Requesting operating system ID...");
-                    Response<uint> osidResponse = await this.Vehicle.QueryOperatingSystemId(this.cancellationTokenSource.Token);
-                    if (osidResponse.Status == ResponseStatus.Success)
+                    this.AddUserMessage("Requesting hardware ID...");
+                    Response<uint> hardwareidResponse = await this.Vehicle.QueryOperatingSystemId(this.cancellationTokenSource.Token);
+                    if (hardwareidResponse.Status == ResponseStatus.Success)
                     {
 
-                        PcmInfo info = new PcmInfo(osidResponse.Value);
+                        PcmInfo info = new PcmInfo(hardwareidResponse.Value);
                         keyAlgorithm = info.KeyAlgorithm;
                         needUnlock = true;
-
-
 
                     }
 
@@ -1457,7 +1503,102 @@ namespace PcmHacking
             }
         }
 
-        private void Modify_options_Click(object sender, EventArgs e)
+        private async void Modify_options_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Response<uint> osidResponse = await this.Vehicle.QueryOperatingSystemId(CancellationToken.None);
+                if (osidResponse.Status != ResponseStatus.Success)
+                {
+                    this.AddUserMessage("Operating system query failed: " + osidResponse.Status);
+                    return;
+                }
+
+                PcmInfo info = new PcmInfo(osidResponse.Value);
+
+                var optionResponse = await this.Vehicle.QueryIPCoptions();
+                if (optionResponse.Status != ResponseStatus.Success)
+                {
+                    this.AddUserMessage("IPC options query failed: " + optionResponse.Status.ToString());
+                    return;
+                }
+
+                DialogBoxes.OptionsForm optionForm = new DialogBoxes.OptionsForm(this.Vehicle, this);
+                optionForm.Option = optionResponse.Value;
+                DialogResult dialogResult = optionForm.ShowDialog();
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    bool unlocked = await this.Vehicle.UnlockEcu(info.KeyAlgorithm);
+                    if (!unlocked)
+                    {
+                        this.AddUserMessage("Unable to unlock PCM.");
+                        return;
+                    }
+
+                    Response<bool> optionsmodified = await this.Vehicle.UpdateOptions(optionForm.Option.Trim());
+                    if (optionsmodified.Value)
+                    {
+                        this.AddUserMessage("Options successfully updated to " + optionForm.Option);
+                        MessageBox.Show("Options updated to " + optionForm.Option + " successfully.", "Good news.", MessageBoxButtons.OK);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to change the Options to " + optionForm.Option + ". Error: " + optionsmodified.Status, "Bad news.", MessageBoxButtons.OK);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                this.AddUserMessage("Options change failed: " + exception.ToString());
+            }
+        }
+
+        private async void mileageCorrectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Response<uint> osidResponse = await this.Vehicle.QueryOperatingSystemId(CancellationToken.None);
+                if (osidResponse.Status != ResponseStatus.Success)
+                {
+                    this.AddUserMessage("Operating system query failed: " + osidResponse.Status);
+                    return;
+                }
+
+                PcmInfo info = new PcmInfo(osidResponse.Value);
+
+                
+                DialogBoxes.MileageForm mileageForm = new DialogBoxes.MileageForm();
+                DialogResult dialogResult = mileageForm.ShowDialog();
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    bool unlocked = await this.Vehicle.UnlockEcu(info.KeyAlgorithm);
+                    if (!unlocked)
+                    {
+                        this.AddUserMessage("Unable to unlock PCM.");
+                        return;
+                    }
+
+                    Response<bool> mileagemodified = await this.Vehicle.UpdateMileage(mileageForm.Mileage.Trim());
+                    if (mileagemodified.Value)
+                    {
+                        this.AddUserMessage("Mileage successfully updated to " + mileageForm.Mileage);
+                        MessageBox.Show("Mileage updated to " + mileageForm.Mileage + " successfully.", "Good news.", MessageBoxButtons.OK);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to change the Mileage to " + mileageForm.Mileage + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                this.AddUserMessage("Mileage change failed: " + exception.ToString());
+            }
+        }
+
+        private void Modify_options99_Click(object sender, EventArgs e)
         {
 
         }

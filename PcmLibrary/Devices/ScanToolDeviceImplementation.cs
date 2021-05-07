@@ -144,7 +144,7 @@ namespace PcmHacking
                         break;
 
                     case TimeoutScenario.WriteMemoryBlock:
-                        milliseconds = 200; // 125 works, added some for safety
+                        milliseconds = 600; // 125 works, added some for safety
                         break;
 
                     case TimeoutScenario.SendKernel:

@@ -226,6 +226,20 @@ namespace PcmHacking
             return this.protocol.ParseStepperResponses(response1.GetBytes(), response2.GetBytes(), response3.GetBytes(), response4.GetBytes(), response5.GetBytes(), response6.GetBytes(), response7.GetBytes());
         }
         /// <summary>
+        /// Query the IPC's Options
+        /// </summary>
+        public async Task<Response<string>> QueryIPCoptions()
+        {
+            await this.device.SetTimeout(TimeoutScenario.ReadProperty);
+
+            var query = this.CreateQuery(
+                this.protocol.CreateOptionsRequest,
+                this.protocol.ParseOptionsresponse,
+                CancellationToken.None);
+
+            return await query.Execute();
+        }
+        /// <summary>
         /// Update the PCM's VIN
         /// </summary>
         /// <remarks>
@@ -337,6 +351,69 @@ namespace PcmHacking
         }
 
         /// <summary>
+        /// Update the IPC options
+        /// </summary>
+        /// <remarks>
+        /// Requires that the IPC is already unlocked
+        /// </remarks>
+        public async Task<Response<bool>> UpdateOptions(string options)
+        {
+            this.device.ClearMessageQueue();
+
+            if (options.Length != 4) // should never happen, but....
+            {
+                this.logger.AddUserMessage("Options " + options + " is not 2 Bytes long!");
+                return Response.Create(ResponseStatus.Error, false);
+            }
+
+            this.logger.AddUserMessage("Changing Options to " + options);
+
+            ///byte[] boptions = Encoding.ASCII.GetBytes(options);
+            var optionint = UInt32.Parse(options, System.Globalization.NumberStyles.HexNumber);
+            byte[] b = BitConverter.GetBytes(optionint);
+
+            byte[] boptions = new byte[2] { b[1], b[0] };
+
+            this.logger.AddUserMessage("Options");
+            Response<bool> block1 = await WriteBlock(BlockIdIPC.Options, boptions);
+            if (block1.Status != ResponseStatus.Success) return Response.Create(ResponseStatus.Error, false);
+
+
+            return Response.Create(ResponseStatus.Success, true);
+        }
+
+        /// <summary>
+        /// Update the PCM's VIN
+        /// </summary>
+        /// <remarks>
+        /// Requires that the PCM is already unlocked
+        /// </remarks>
+        public async Task<Response<bool>> UpdateMileage(string mileage)
+        {
+            this.device.ClearMessageQueue();
+
+            if (mileage.Length >= 8) // should never happen, but....
+            {
+                this.logger.AddUserMessage("Mileage" + mileage + " is not less than 8 characters long!");
+                return Response.Create(ResponseStatus.Error, false);
+            }
+
+            this.logger.AddUserMessage("Changing Mileage to " + mileage);
+
+            uint intmileage = uint.Parse(mileage, System.Globalization.NumberStyles.Integer);
+            //byte[] bmileage = Encoding.ASCII.GetBytes(mileage);
+            byte[] bmileage = BitConverter.GetBytes(intmileage);
+            byte[] miles = new byte[5] { 0x45, bmileage[3], bmileage[2], bmileage[1], bmileage[0] };
+
+            
+            Response<bool> block1 = await WriteBlock(0x99, miles);
+            if (block1.Status != ResponseStatus.Success) return Response.Create(ResponseStatus.Error, false);
+           
+            return Response.Create(ResponseStatus.Success, true);
+
+        }
+
+        /// <summary>
         /// Query the PCM's operating system ID.
         /// </summary>
         /// <returns></returns>
@@ -385,19 +462,25 @@ namespace PcmHacking
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<Response<UInt32>> SweepGauges()
+        public async Task SweepGauges()
         {
-            return await this.QueryUnsignedValue(this.protocol.CreateSweepGaugesrequest, CancellationToken.None);
+            ///return await this.QueryUnsignedValue(this.protocol.CreateSweepGaugesrequest, CancellationToken.None);
+            Message message = this.protocol.CreateSweepGaugesrequest();
+            await this.device.SendMessage(message);          
         }
 
-        public async Task<Response<UInt32>> LEDson()
+        public async Task LEDson()
         {
-            return await this.QueryUnsignedValue(this.protocol.CreateLEDsonrequest, CancellationToken.None);
+            ///return await this.QueryUnsignedValue(this.protocol.CreateLEDsonrequest, CancellationToken.None);
+            Message message = this.protocol.CreateLEDsonrequest();
+            await this.device.SendMessage(message);
         }
 
-        public async Task<Response<UInt32>> Displayon()
+        public async Task Displayon()
         {
-            return await this.QueryUnsignedValue(this.protocol.CreateDisplaysonrequest, CancellationToken.None);
+            ///return await this.QueryUnsignedValue(this.protocol.CreateDisplaysonrequest, CancellationToken.None);
+            Message message = this.protocol.CreateDisplaysonrequest();
+            await this.device.SendMessage(message);
         }
 
         public async Task<Response<UInt32>> startProgram()

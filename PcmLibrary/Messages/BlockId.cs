@@ -31,7 +31,7 @@ namespace PcmHacking
         public const byte EngineDiagCalLvl   = 0x95; // Engine Diagnostic Calibration Level
         public const byte TransCalLvl        = 0x96; // Transmission Segment Calibration Level
         public const byte TransDiagLvl       = 0x97; // Transmission Diagnostic Calibration Level
-        public const byte FuelCalLvl         = 0x98; // Fuel Segment Calibration Level
+        public const byte BootSector         = 0x98; // Fuel Segment Calibration Level
         public const byte SystemCalLvl       = 0x99; // System Segment Calibration Level
         public const byte SpeedCalLvl        = 0x9A; // Speed Calibration Level
         public const byte MEC                = 0xA0; // Manufacturers Enable Counter  
@@ -46,6 +46,9 @@ namespace PcmHacking
         public const byte VoltCal            = 0x94;
         public const byte OilCal             = 0x95;
         public const byte TransTempCal       = 0x97;
+        public const byte Options            = 0x9A;    
+    
+    
     }
 
 

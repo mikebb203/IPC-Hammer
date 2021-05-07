@@ -86,6 +86,12 @@
     <Compile Include="DialogBoxes\DelayDialogBox.Designer.cs">
       <DependentUpon>DelayDialogBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="DialogBoxes\MileageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogBoxes\MileageForm.designer.cs">
+      <DependentUpon>MileageForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogBoxes\OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DialogBoxes\DelayDialogBox.resx">
       <DependentUpon>DelayDialogBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogBoxes\MileageForm.resx">
+      <DependentUpon>MileageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogBoxes\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
