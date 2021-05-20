@@ -7,7 +7,7 @@
     <ProjectGuid>{4ADB5D87-D4D5-4D12-8681-A9E2D4C52DF6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PcmLibraryWindowsForms</RootNamespace>
+    <RootNamespace>IPCLibraryWindowsForms</RootNamespace>
     <AssemblyName>PcmLibraryWindowsForms</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -80,9 +80,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PcmLibrary\PcmLibrary.csproj">
+    <ProjectReference Include="..\IPCLibrary\PcmLibrary.csproj">
       <Project>{0b317c5a-e078-4a96-8e7a-00601bca1429}</Project>
-      <Name>PcmLibrary</Name>
+      <Name>IPCLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6A473C4F-A1A3-4CFB-8167-13F4064C1639}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>PcmLogger</RootNamespace>
+    <RootNamespace>IPCLogger</RootNamespace>
     <AssemblyName>PcmLogger</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -91,13 +91,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PcmLibraryWindowsForms\PcmLibraryWindowsForms.csproj">
+    <ProjectReference Include="..\IPCLibraryWindowsForms\PcmLibraryWindowsForms.csproj">
       <Project>{4adb5d87-d4d5-4d12-8681-a9e2d4c52df6}</Project>
-      <Name>PcmLibraryWindowsForms</Name>
+      <Name>IPCLibraryWindowsForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PcmLibrary\PcmLibrary.csproj">
+    <ProjectReference Include="..\IPCLibrary\PcmLibrary.csproj">
       <Project>{0b317c5a-e078-4a96-8e7a-00601bca1429}</Project>
-      <Name>PcmLibrary</Name>
+      <Name>IPCLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

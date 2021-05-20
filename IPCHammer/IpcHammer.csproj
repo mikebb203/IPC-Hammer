@@ -175,11 +175,11 @@
     <EmbeddedResource Include="help.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PcmLibraryWindowsForms\PcmLibraryWindowsForms.csproj">
+    <ProjectReference Include="..\IPCLibraryWindowsForms\PcmLibraryWindowsForms.csproj">
       <Project>{4adb5d87-d4d5-4d12-8681-a9e2d4c52df6}</Project>
       <Name>PcmLibraryWindowsForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PcmLibrary\PcmLibrary.csproj">
+    <ProjectReference Include="..\IPCLibrary\PcmLibrary.csproj">
       <Project>{0b317c5a-e078-4a96-8e7a-00601bca1429}</Project>
       <Name>PcmLibrary</Name>
     </ProjectReference>
