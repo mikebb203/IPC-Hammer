@@ -139,6 +139,7 @@ namespace PcmHacking
             this.serialDeviceList.Items.Add(prompt);
             this.serialDeviceList.SelectedIndex = 0;
             this.serialDeviceList.Items.Add(ElmDevice.DeviceType);
+            // this.serialDeviceList.Items.Add(AvtDevice2.DeviceType);
             this.serialDeviceList.Items.Add(AvtDevice.DeviceType);
             this.serialDeviceList.Items.Add(OBDXProDevice.DeviceType);
 

@@ -54,7 +54,9 @@ namespace PcmHacking
                     case AvtDevice.DeviceType:
                         device = new AvtDevice(port, logger);
                         break;
-
+                    case AvtDevice2.DeviceType:
+                        device = new AvtDevice2(port, logger);
+                        break;
                     case MockDevice.DeviceType:
                         device = new MockDevice(port, logger);
                         break;

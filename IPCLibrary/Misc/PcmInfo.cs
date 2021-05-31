@@ -66,13 +66,21 @@ namespace PcmHacking
                 case 12201465:
                 case 12201463:
                 */
-                case 15114624:
-                case 15124091:
-                case 15190861:
-                case 15782454:
-                case 15135638:
+                
+                case 15124091: // 2003
+                case 15182173:
+                case 16001314:
+                case 15114624: // 2004
+                case 15104641:
+                case 15190861: // 2005 cluster/2003-04 truck
+
+                case 15107552: // 2005 2006 
+                case 15782454: // 2005 2006
+
+                case 15287329: // 2007 classic
+
                     this.KeyAlgorithm = 20;
-                    this.Description = "21002558 IPC";
+                    this.Description = "GMT800 IPC";
                     this.ImageSize = 112 * 1024;
                     break;
 

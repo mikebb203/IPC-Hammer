@@ -1342,7 +1342,11 @@ namespace PcmHacking
                                 calid += image[0x006] << 8;
                                 calid += image[0x007] << 0;
                             }
-
+                            else
+                            {
+                                this.AddUserMessage("Calibration file not 16k.");
+                                return;
+                            }
                             OsInfo info = new OsInfo(calid);
                             
                                                         

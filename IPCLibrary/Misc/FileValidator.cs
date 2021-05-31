@@ -59,11 +59,15 @@ namespace PcmHacking
             {
                 this.logger.AddUserMessage("Validating 112k file.");
             }
+            else if (this.image.Length == 96 * 1024)
+            {
+                this.logger.AddUserMessage("Validating 96k file.");
+            }
             else
             {
                 this.logger.AddUserMessage(
                     string.Format(
-                        "Files must be 16K, 112k. This file is {0} / {1:X} bytes long.",
+                        "Files must be 16K, 96k, 112k. This file is {0} / {1:X} bytes long.",
                         this.image.Length,
                         this.image.Length));
                 return false;
@@ -107,7 +111,13 @@ namespace PcmHacking
                 osid += image[0x006] << 8;
                 osid += image[0x007] << 0;
             }
-            
+            if (image.Length == 96 * 1024)
+            {
+                osid += image[0x004] << 24;
+                osid += image[0x005] << 16;
+                osid += image[0x006] << 8;
+                osid += image[0x007] << 0;
+            }
             if (image.Length == 112 * 1024) // bin valid sizes
             {
                 osid += image[0x004] << 24;
@@ -156,6 +166,12 @@ namespace PcmHacking
                 
                 loop = 0;
                 loop1 = 2;
+            }
+            if (image.Length == 96 * 1024)
+            {
+
+                loop = 0;
+                loop1 = 1;
             }
             if (image.Length == 16 * 1024)
             {
