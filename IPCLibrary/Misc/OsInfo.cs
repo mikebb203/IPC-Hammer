@@ -23,6 +23,7 @@ namespace PcmHacking
 
         public uint BootSector { get; private set; }
 
+        
         /// Populate this object based on the given OSID.
         /// </summary>
         public OsInfo(int calid)
@@ -52,6 +53,7 @@ namespace PcmHacking
                 case 15104999:
                     this.OsID = "15124091.bin";
                     this.BootSector = 12227606;
+                    
                     break;
 
                 ///2004 cluster

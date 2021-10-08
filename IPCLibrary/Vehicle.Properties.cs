@@ -239,6 +239,22 @@ namespace PcmHacking
 
             return await query.Execute();
         }
+
+        /// <summary>
+        /// Query the IPC's Options
+        /// </summary>
+        public async Task<Response<string>> QueryIPCoptions99()
+        {
+            await this.device.SetTimeout(TimeoutScenario.ReadProperty);
+
+            var query = this.CreateQuery(
+                this.protocol.CreateOptionsRequest99,
+                this.protocol.ParseOptionsresponse99,
+                CancellationToken.None);
+
+            return await query.Execute();
+        }
+
         /// <summary>
         /// Update the PCM's VIN
         /// </summary>
@@ -383,6 +399,38 @@ namespace PcmHacking
         }
 
         /// <summary>
+        /// Update the IPC options 99-02
+        /// </summary>
+        /// <remarks>
+        /// Requires that the IPC is already unlocked
+        /// </remarks>
+        public async Task<Response<bool>> UpdateOptions99(string options)
+        {
+            this.device.ClearMessageQueue();
+
+            if (options.Length != 4) // should never happen, but....
+            {
+                this.logger.AddUserMessage("Options " + options + " is not 2 Bytes long!");
+                return Response.Create(ResponseStatus.Error, false);
+            }
+
+            this.logger.AddUserMessage("Changing Options to " + options);
+
+            ///byte[] boptions = Encoding.ASCII.GetBytes(options);
+            var optionint = UInt32.Parse(options, System.Globalization.NumberStyles.HexNumber);
+            byte[] b = BitConverter.GetBytes(optionint);
+
+            byte[] boptions = new byte[2] { b[1], b[0] };
+
+            this.logger.AddUserMessage("Options");
+            Response<bool> block1 = await WriteBlock(BlockIdIPC.Options99, boptions);
+            if (block1.Status != ResponseStatus.Success) return Response.Create(ResponseStatus.Error, false);
+
+
+            return Response.Create(ResponseStatus.Success, true);
+        }
+
+        /// <summary>
         /// Update the PCM's VIN
         /// </summary>
         /// <remarks>
@@ -483,14 +531,38 @@ namespace PcmHacking
             await this.device.SendMessage(message);
         }
 
-        public async Task<Response<UInt32>> startProgram()
+        public async Task Lights99()
         {
-            return await this.QueryUnsignedValue(this.protocol.CreatestartingProgramrequest, CancellationToken.None);
+            ///return await this.QueryUnsignedValue(this.protocol.CreateDisplaysonrequest, CancellationToken.None);
+            Message message = this.protocol.CreateLights99request();
+            await this.device.SendMessage(message);
+            Message message1 = this.protocol.CreateLights992request();
+            await this.device.SendMessage(message1);
         }
 
-        public async Task<Response<UInt32>> requestmode34()
+        public async Task PRNDL99()
         {
-            return await this.QueryUnsignedValue(this.protocol.Createmode34request, CancellationToken.None);
+            Message message = this.protocol.CreatePRNDL99request();
+            await this.device.SendMessage(message);
         }
+
+        public async Task SweepGauges9900()
+        {
+            Message message = this.protocol.CreateSweepGauges9900();
+            await this.device.SendMessage(message);
+        }
+
+        public async Task SweepGauges9950()
+        {
+            Message message = this.protocol.CreateSweepGauges9950();
+            await this.device.SendMessage(message);
+        }
+
+        public async Task SweepGauges99100()
+        {
+            Message message = this.protocol.CreateSweepGauges99100();
+            await this.device.SendMessage(message);
+        }
+
     }
 }

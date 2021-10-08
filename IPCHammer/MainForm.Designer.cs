@@ -60,6 +60,7 @@
             this.mileageCorrectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemEnable4xReadWrite = new System.Windows.Forms.ToolStripMenuItem();
+            this.testipc99 = new System.Windows.Forms.Button();
             this.interfaceBox.SuspendLayout();
             this.operationsBox.SuspendLayout();
             this.tabs.SuspendLayout();
@@ -118,6 +119,7 @@
             // 
             this.operationsBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.operationsBox.Controls.Add(this.testipc99);
             this.operationsBox.Controls.Add(this.Modify_options99);
             this.operationsBox.Controls.Add(this.Checksum_test);
             this.operationsBox.Controls.Add(this.Modify_options);
@@ -128,18 +130,18 @@
             this.operationsBox.Controls.Add(this.write1CalibrationButton);
             this.operationsBox.Controls.Add(this.IpctestButton);
             this.operationsBox.Controls.Add(this.readPropertiesButton);
-            this.operationsBox.Location = new System.Drawing.Point(9, 155);
+            this.operationsBox.Location = new System.Drawing.Point(9, 123);
             this.operationsBox.Margin = new System.Windows.Forms.Padding(2);
             this.operationsBox.Name = "operationsBox";
             this.operationsBox.Padding = new System.Windows.Forms.Padding(2);
-            this.operationsBox.Size = new System.Drawing.Size(224, 347);
+            this.operationsBox.Size = new System.Drawing.Size(224, 379);
             this.operationsBox.TabIndex = 1;
             this.operationsBox.TabStop = false;
             this.operationsBox.Text = "Operations";
             // 
             // Modify_options99
             // 
-            this.Modify_options99.Location = new System.Drawing.Point(4, 194);
+            this.Modify_options99.Location = new System.Drawing.Point(5, 223);
             this.Modify_options99.Name = "Modify_options99";
             this.Modify_options99.Size = new System.Drawing.Size(214, 23);
             this.Modify_options99.TabIndex = 12;
@@ -149,7 +151,7 @@
             // 
             // Checksum_test
             // 
-            this.Checksum_test.Location = new System.Drawing.Point(4, 222);
+            this.Checksum_test.Location = new System.Drawing.Point(4, 283);
             this.Checksum_test.Margin = new System.Windows.Forms.Padding(2);
             this.Checksum_test.Name = "Checksum_test";
             this.Checksum_test.Size = new System.Drawing.Size(216, 25);
@@ -176,14 +178,14 @@
             this.adjustStepperCalibration.Name = "adjustStepperCalibration";
             this.adjustStepperCalibration.Size = new System.Drawing.Size(216, 25);
             this.adjustStepperCalibration.TabIndex = 7;
-            this.adjustStepperCalibration.Text = "Adjust Stepper Calibration";
+            this.adjustStepperCalibration.Text = "Adjust Stepper Calibration 03-07";
             this.adjustStepperCalibration.UseVisualStyleBackColor = true;
             this.adjustStepperCalibration.Click += new System.EventHandler(this.adjustStepperCalibration_Click);
             // 
             // exitKernelButton
             // 
             this.exitKernelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.exitKernelButton.Location = new System.Drawing.Point(4, 280);
+            this.exitKernelButton.Location = new System.Drawing.Point(4, 312);
             this.exitKernelButton.Margin = new System.Windows.Forms.Padding(2);
             this.exitKernelButton.Name = "exitKernelButton";
             this.exitKernelButton.Size = new System.Drawing.Size(216, 25);
@@ -195,7 +197,7 @@
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cancelButton.Location = new System.Drawing.Point(4, 314);
+            this.cancelButton.Location = new System.Drawing.Point(4, 346);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(216, 25);
@@ -233,7 +235,7 @@
             this.IpctestButton.Name = "IpctestButton";
             this.IpctestButton.Size = new System.Drawing.Size(216, 25);
             this.IpctestButton.TabIndex = 6;
-            this.IpctestButton.Text = "Test IPC";
+            this.IpctestButton.Text = "Test IPC 03-07";
             this.IpctestButton.UseVisualStyleBackColor = true;
             this.IpctestButton.Click += new System.EventHandler(this.IpctestButton_Click);
             // 
@@ -405,6 +407,16 @@
             this.menuItemEnable4xReadWrite.Text = "Enable &4x Communication";
             this.menuItemEnable4xReadWrite.Click += new System.EventHandler(this.enable4xReadWrite_Click);
             // 
+            // testipc99
+            // 
+            this.testipc99.Location = new System.Drawing.Point(5, 194);
+            this.testipc99.Name = "testipc99";
+            this.testipc99.Size = new System.Drawing.Size(213, 23);
+            this.testipc99.TabIndex = 13;
+            this.testipc99.Text = "Test IPC 99-02";
+            this.testipc99.UseVisualStyleBackColor = true;
+            this.testipc99.Click += new System.EventHandler(this.testipc99_Click);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.readPropertiesButton;
@@ -470,6 +482,7 @@
         private System.Windows.Forms.Button Checksum_test;
         private System.Windows.Forms.ToolStripMenuItem mileageCorrectionToolStripMenuItem;
         private System.Windows.Forms.Button Modify_options99;
+        private System.Windows.Forms.Button testipc99;
     }
 }
 

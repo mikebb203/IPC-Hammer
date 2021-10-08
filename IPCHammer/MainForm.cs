@@ -332,6 +332,7 @@ namespace PcmHacking
             this.Modify_options99.Enabled = false;
             this.menuItemEnable4xReadWrite.Enabled = false;
             this.Checksum_test.Enabled = false;
+            this.testipc99.Enabled = false;
         }
 
         /// <summary>
@@ -357,8 +358,9 @@ namespace PcmHacking
                 this.reinitializeButton.Enabled = true;
                 this.Modify_options.Enabled = true;
                 this.Checksum_test.Enabled = true;
-
+                this.Modify_options99.Enabled = true;
                 this.menuItemEnable4xReadWrite.Enabled = true;
+                this.testipc99.Enabled = true;
             });
         }
 
@@ -1301,13 +1303,7 @@ namespace PcmHacking
                             return;
                         }
 
-                        DelayDialogBox dialogBox = new DelayDialogBox();
-                        DialogResult dialogResult = dialogBox.ShowDialog(this);
-                        if (dialogResult == DialogResult.Cancel)
-                        {
-                            path = null;
-                            return;
-                        }
+                       
                     });
 
 
@@ -1376,11 +1372,203 @@ namespace PcmHacking
                             break;
 
                         case WriteTypeIpc.Ipc:  /// Calibration
-                            
+
+                            int calidcal = 0;
+
+                            calidcal += image[0x004] << 24;
+                            calidcal += image[0x005] << 16;
+                            calidcal += image[0x006] << 8;
+                            calidcal += image[0x007] << 0;
+
+                            OsInfo infocal = new OsInfo(calidcal);
+
+                            DialogBoxes.A7k140mphForm a7k140mphForm = new DialogBoxes.A7k140mphForm();
+                            DialogResult dialog1Result = a7k140mphForm.ShowDialog();
+                            if (dialog1Result == DialogResult.Cancel)
+                            {
+                                path = null;
+                                return;
+                            }
+
+                            if (a7k140mphForm.Tach || a7k140mphForm.Speedo)
+                            {
+                                switch (calidcal)
+                                {
+                                    ///2003 cluster
+                                    case 15104985:
+                                    case 15104986:
+                                    case 15104987:
+                                    case 15104988:
+                                    case 15104989:
+                                    case 15104990:
+                                    case 15104991:
+                                    case 15104992:
+                                    case 15104993:
+                                    case 15104994:
+                                    case 15104995:
+                                    case 15104996:
+                                    case 15104997:
+                                    case 15104998:
+                                    case 15104999:
+                                        if (a7k140mphForm.Tach == true)
+                                        {
+                                            image[0x252] = 0xD3;
+                                            image[0x254] = 0x60;
+                                            image[0x255] = 0x6D;
+                                        }
+                                        if (a7k140mphForm.Speedo == true)
+                                        {
+                                            image[0x1F2] = 0xB2;
+                                            image[0x1F3] = 0x04;
+                                            image[0x1F4] = 0xA7;
+                                            image[0x1F5] = 0x70;
+                                        }
+                                        break;
+
+                                    ///2004 cluster
+                                    case 15130763:
+                                    case 15130764:
+                                    case 15130765:
+                                    case 15130766:
+                                    case 15130767:
+                                    case 15130768:
+                                    case 15130769:
+                                    case 15130770:
+                                    case 15130771:
+                                    case 15130772:
+                                    case 15130773:
+                                    case 15130774:
+                                    case 15130775:
+                                    case 15130776:
+                                    case 15130777:
+                                    case 15130778:
+                                    case 15130779:
+                                    case 15130780:
+                                    case 15130781:
+                                        if (a7k140mphForm.Tach == true)
+                                        {
+                                            image[0x270] = 0xD3;
+                                            image[0x272] = 0x60;
+                                            image[0x273] = 0x6D;
+                                        }
+                                        if (a7k140mphForm.Speedo == true)
+                                        {
+                                            image[0x210] = 0xB2;
+                                            image[0x211] = 0x04;
+                                            image[0x212] = 0xA7;
+                                            image[0x213] = 0x70;
+                                        }
+                                        break;
+
+                                    ///2005 cluster
+                                    case 15224110:
+                                    case 15224111:
+                                    case 15224112:
+                                    case 15224113:
+                                    case 15224114:
+                                    case 15224115:
+                                    case 15224116:
+                                    case 15224117:
+                                    case 15224118:
+                                    case 15224119:
+                                    case 15224120:
+                                    case 15224121:
+                                    case 15224122:
+                                    case 15224123:
+                                    case 15224124:
+                                    case 15224125:
+                                    case 15224126:
+                                    case 15224127:
+                                    case 15224128:
+                                    case 15224129:
+                                    case 15224130:
+                                    case 15224131:
+                                    case 15224132:
+                                        if (a7k140mphForm.Tach == true)
+                                        {
+                                            image[0x2BA] = 0xD3;
+                                            image[0x2BC] = 0x60;
+                                            image[0x2BD] = 0x6D;
+                                        }
+                                        
+                                        break;
+
+                                    ///2005 cluster 2003-2004 truck
+                                    case 15787053:
+                                    case 15787054:
+                                    case 15787055:
+                                    case 15787056:
+                                    case 15787057:
+                                    case 15787058:
+                                    case 15787059:
+                                    case 15787060:
+                                    case 15787061:
+                                    case 15787062:
+                                    case 15787063:
+                                    case 15787064:
+                                    case 15787065:
+                                    case 15787066:
+                                    case 15787067:
+                                    case 15787068:
+                                    case 15787069:
+                                    case 15787070:
+                                    case 15787071:
+                                    case 15787072:
+                                    case 15787073:
+                                        if (a7k140mphForm.Tach == true)
+                                        {
+                                            image[0x2B8] = 0xD3;
+                                            image[0x2BA] = 0x60;
+                                            image[0x2BB] = 0x6D;
+                                        }
+                                        
+                                        break;
+
+                                    ///2006 cluster
+                                    case 15105974:
+                                    case 15105975:
+                                    case 15105976:
+                                    case 15105978:
+                                    case 15105979:
+                                    case 15105980:
+                                    case 15105981:
+                                    case 15105982:
+                                    case 15105983:
+                                    case 15105986:
+                                        if (a7k140mphForm.Tach == true)
+                                        {
+                                            image[0x2BA] = 0xD3;
+                                            image[0x2BC] = 0x60;
+                                            image[0x2BD] = 0x6D;
+                                        }
+                                        
+                                        break;
+
+
+                                }
+
+                                FileValidator1 validator1 = new FileValidator1(image, this);
+                                if(!validator1.IsValid())
+                                {
+
+                                    this.AddUserMessage("This file is corrupt.It would render your IPC unusable.");
+                                    return;
+                                }
+
+                            }
                             break;
                         default:
                             throw new InvalidDataException("Unsuppported operation type: " + writeTypeIpc.ToString());
                     }
+
+                    DelayDialogBox dialogBox = new DelayDialogBox();
+                    DialogResult dialogResult = dialogBox.ShowDialog(this);
+                    if (dialogResult == DialogResult.Cancel)
+                    {
+                        path = null;
+                        return;
+                    }
+
                     // Sanity checks. 
                     FileValidator validator = new FileValidator(image, this);
                     if (!validator.IsValid())
@@ -1602,9 +1790,96 @@ namespace PcmHacking
             }
         }
 
-        private void Modify_options99_Click(object sender, EventArgs e)
+        private async void Modify_options99_Click(object sender, EventArgs e)
         {
+            try
+            {
+                uint osidResponse = 9902;
+                
 
+                PcmInfo info = new PcmInfo(osidResponse);
+
+                var optionResponse = await this.Vehicle.QueryIPCoptions99();
+                if (optionResponse.Status != ResponseStatus.Success)
+                {
+                    this.AddUserMessage("IPC options query failed: " + optionResponse.Status.ToString());
+                    return;
+                }
+
+                DialogBoxes.OptionsForm optionForm = new DialogBoxes.OptionsForm(this.Vehicle, this);
+                optionForm.Option = optionResponse.Value;
+                DialogResult dialogResult = optionForm.ShowDialog();
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    bool unlocked = await this.Vehicle.UnlockEcu(info.KeyAlgorithm);
+                    if (!unlocked)
+                    {
+                        this.AddUserMessage("Unable to unlock PCM.");
+                        return;
+                    }
+
+                    Response<bool> optionsmodified = await this.Vehicle.UpdateOptions99(optionForm.Option.Trim());
+                    if (optionsmodified.Value)
+                    {
+                        this.AddUserMessage("Options successfully updated to " + optionForm.Option);
+                        MessageBox.Show("Options updated to " + optionForm.Option + " successfully.", "Good news.", MessageBoxButtons.OK);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to change the Options to " + optionForm.Option + ". Error: " + optionsmodified.Status, "Bad news.", MessageBoxButtons.OK);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                this.AddUserMessage("Options change failed: " + exception.ToString());
+            }
+        }
+
+        private async void testipc99_Click(object sender, EventArgs e)
+        {
+            if (!BackgroundWorker.IsAlive)
+            {
+
+                if (this.Vehicle == null)
+                {
+                    // This shouldn't be possible - it would mean the buttons 
+                    // were enabled when they shouldn't be.
+                    return;
+                }
+
+                try
+                {
+                    this.DisableUserInput();
+
+                    this.AddUserMessage("IPC test lights.");
+                    await this.Vehicle.Lights99();
+
+                    this.AddUserMessage("IPC test prndl display.");
+                    await this.Vehicle.PRNDL99();
+                    
+                    this.AddUserMessage("IPC test gauges.");
+                    await this.Vehicle.SweepGauges9950();
+                    System.Threading.Thread.Sleep(1500);
+                    await this.Vehicle.SweepGauges99100();
+                    System.Threading.Thread.Sleep(1500);
+                    await this.Vehicle.SweepGauges9950();
+                    System.Threading.Thread.Sleep(1500);
+                    await this.Vehicle.SweepGauges9900();
+                    
+                    
+                }
+                catch (Exception exception)
+                {
+                    this.AddUserMessage(exception.Message);
+                    this.AddDebugMessage(exception.ToString());
+                }
+                finally
+                {
+                    this.EnableUserInput();
+                }
+            }
         }
     }
 }

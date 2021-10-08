@@ -63,7 +63,6 @@
             // j2534RadioButton
             // 
             this.j2534RadioButton.AutoSize = true;
-            this.j2534RadioButton.Enabled = false;
             this.j2534RadioButton.Location = new System.Drawing.Point(142, 20);
             this.j2534RadioButton.Name = "j2534RadioButton";
             this.j2534RadioButton.Size = new System.Drawing.Size(91, 17);
@@ -169,6 +168,7 @@
             // autoDetectButton
             // 
             this.autoDetectButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.autoDetectButton.Enabled = false;
             this.autoDetectButton.Location = new System.Drawing.Point(13, 302);
             this.autoDetectButton.Name = "autoDetectButton";
             this.autoDetectButton.Size = new System.Drawing.Size(94, 23);

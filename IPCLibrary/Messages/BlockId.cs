@@ -46,7 +46,8 @@ namespace PcmHacking
         public const byte VoltCal            = 0x94;
         public const byte OilCal             = 0x95;
         public const byte TransTempCal       = 0x97;
-        public const byte Options            = 0x9A;    
+        public const byte Options            = 0x9A;
+        public const byte Options99          = 0x80;
     
     
     }

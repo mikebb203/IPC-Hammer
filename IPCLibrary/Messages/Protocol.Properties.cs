@@ -292,7 +292,34 @@ namespace PcmHacking
             return CreateDevicecontrolrequest(0x21, 0x88, 0x88, 0x00, 0x00, 0x00, 0x00);
         }
 
+        public Message CreateLights99request()
+        {
+            return CreateDevicecontrolrequest(0x11, 0x5A, 0x5A, 0x00, 0x00, 0x00, 0x00);
+        }
 
+        public Message CreateLights992request()
+        {
+            return CreateDevicecontrolrequest(0x10, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01);
+        }
+        public Message CreatePRNDL99request()
+        {
+            return CreateDevicecontrolrequest(0x18, 0xEF, 0xEF, 0x00, 0x00, 0x00, 0x00);
+        }
+
+        public Message CreateSweepGauges9900()
+        {
+            return CreateDevicecontrolrequest(0x20, 0xF8, 0xFF, 0x00, 0x00, 0x00, 0x00);
+        }
+
+        public Message CreateSweepGauges9950()
+        {
+            return CreateDevicecontrolrequest(0x20, 0xF8, 0xFF, 0x00, 0x00, 0x00, 0x80);
+        }
+
+        public Message CreateSweepGauges99100()
+        {
+            return CreateDevicecontrolrequest(0x20, 0xF8, 0xFF, 0x00, 0x00, 0x00, 0xFF);
+        }
         public Message CreatestartingProgramrequest()
         {
             return CreateDevicecontrolrequest(0x18, 0x00, 0x00, 0x02, 0x02, 0x00, 0x00);
@@ -372,6 +399,11 @@ namespace PcmHacking
             return CreateReadRequest(BlockIdIPC.Options);
         }
 
+        public Message CreateOptionsRequest99()
+        {
+            return CreateReadRequest(BlockIdIPC.Options99);
+        }
+
         public Response<string> ParseOptionsresponse(Message responseMessage)
         {
             string result = "Unknown";
@@ -394,7 +426,27 @@ namespace PcmHacking
             return Response.Create(ResponseStatus.Success, Options);
         }
 
+        public Response<string> ParseOptionsresponse99(Message responseMessage)
+        {
+            string result = "Unknown";
+            ResponseStatus status;
+            byte[] response = responseMessage.GetBytes();
 
+            byte[] expected = new byte[] { 0x6C, DeviceId.Tool, DeviceId.Pcm, 0x7C, BlockIdIPC.Options99 };
+            if (!TryVerifyInitialBytes(response, expected, out status))
+            {
+                return Response.Create(status, result);
+            }
+
+            ///string options = response[5].ToString();
+            ///string options1 = response[6].ToString();
+            byte[] optionBytes = new byte[2];
+            Buffer.BlockCopy(response, 5, optionBytes, 0, 2);
+            int resp = (optionBytes[1] << 0) | (optionBytes[0] << 8);
+            var Options = resp.ToString("X4");
+            ///var Options = string.Concat(options, options1);
+            return Response.Create(ResponseStatus.Success, Options);
+        }
 
         /// <summary>
         /// Parse the responses to the three requests for VIN information.

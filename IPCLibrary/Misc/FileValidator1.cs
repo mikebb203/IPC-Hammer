@@ -8,7 +8,7 @@ namespace PcmHacking
     /// <summary>
     /// Try to detect corrupted firmware images.
     /// </summary>
-    public class FileValidator
+    public class FileValidator1
     {
         /// <summary>
         /// Names of segments in P01 and P59 operating systems.
@@ -38,7 +38,7 @@ namespace PcmHacking
         /// <summary>
         /// Constructor.
         /// </summary>
-        public FileValidator(byte[] image, ILogger logger)
+        public FileValidator1(byte[] image, ILogger logger)
         {
             this.image = image;
             this.logger = logger;
@@ -55,19 +55,19 @@ namespace PcmHacking
             {
                 this.logger.AddUserMessage("Validating 16k file.");
             }
-            else if (this.image.Length == 112 * 1024)
-            {
-                this.logger.AddUserMessage("Validating 112k file.");
-            }
-            else if (this.image.Length == 96 * 1024)
-            {
-                this.logger.AddUserMessage("Validating 96k file.");
-            }
+            ///else if (this.image.Length == 112 * 1024)
+            ///{
+            ///    this.logger.AddUserMessage("Validating 112k file.");
+            ///}
+            ///else if (this.image.Length == 96 * 1024)
+            ///{
+            ///    this.logger.AddUserMessage("Validating 96k file.");
+            ///}
             else
             {
                 this.logger.AddUserMessage(
                     string.Format(
-                        "Files must be 16K, 96k, 112k. This file is {0} / {1:X} bytes long.",
+                        "Files must be 16K. This file is {0} / {1:X} bytes long.",
                         this.image.Length,
                         this.image.Length));
                 return false;
@@ -79,24 +79,7 @@ namespace PcmHacking
             return success;
         }
 
-        /// <summary>
-        /// Compare the OS ID from the PCM with the OS ID from the file.
-        /// </summary>
-        public bool IsSameOperatingSystem(UInt32 pcmOsid)
-        {
-            UInt32 fileOsid = this.GetOsidFromImage();
-
-            if (pcmOsid == fileOsid)
-            {
-                this.logger.AddUserMessage("PCM and file are both operating system " + pcmOsid);
-                return true;
-            }
-
-            this.logger.AddUserMessage("Operating system IDs do not match.");
-            this.logger.AddUserMessage("PCM operating system ID: " + pcmOsid);
-            this.logger.AddUserMessage("File operating system ID: " + fileOsid);
-            return false;
-        }
+        
 
         /// <summary>
         /// Get the OSID from the file that the user wants to flash.
@@ -301,18 +284,11 @@ namespace PcmHacking
 
             computedChecksum = ReverseBytes(computedChecksum);
 
-            bool verdict = storedChecksum == computedChecksum;
+            image[0] = (byte)(computedChecksum >> 8);
+            image[1] = (byte)(computedChecksum);
 
-            string error = string.Format(
-                "\t{0:X5}\t{1:X5}\t{2:X4}\t{3:X4}\t{4:X4}\t{5}", 
-                start, 
-                end,
-                storedChecksum, 
-                computedChecksum,
-                verdict ? "Good" : "BAD",
-                description);
+            bool verdict = computedChecksum == computedChecksum;
 
-            this.logger.AddUserMessage(error);
             return verdict;
         }
 
@@ -321,6 +297,8 @@ namespace PcmHacking
         {
             return (UInt16)((value & 0xFFU) << 8 | (value & 0xFF00U) >> 8);
         }
+
+
 
     }
 }

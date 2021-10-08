@@ -75,6 +75,7 @@ namespace PcmHacking
                 case 15190861: // 2005 cluster/2003-04 truck
 
                 case 15107552: // 2005 2006 
+                case 15135638:
                 case 15782454: // 2005 2006
 
                 case 15287329: // 2007 classic
@@ -83,6 +84,13 @@ namespace PcmHacking
                     this.Description = "GMT800 IPC";
                     this.ImageSize = 112 * 1024;
                     break;
+
+                case 9902:
+                    this.KeyAlgorithm = 20;
+                    this.Description = "GMT800 IPC";
+                    break;
+
+
 
                 default:
                     this.IsSupported = false; // Not sure what the default should be...

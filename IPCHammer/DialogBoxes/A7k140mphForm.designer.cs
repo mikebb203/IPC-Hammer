@@ -1,6 +1,6 @@
 ﻿namespace PcmHacking.DialogBoxes
 {
-    partial class MileageForm
+    partial class A7k140mphForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,11 +29,13 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.mileageBox = new System.Windows.Forms.TextBox();
             this.prompt = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -42,33 +44,24 @@
             this.label1.Location = new System.Drawing.Point(9, 13);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
+            this.label1.Size = new System.Drawing.Size(78, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Enter Mileage:";
-            // 
-            // mileageBox
-            // 
-            this.mileageBox.Location = new System.Drawing.Point(88, 6);
-            this.mileageBox.Margin = new System.Windows.Forms.Padding(2);
-            this.mileageBox.Name = "mileageBox";
-            this.mileageBox.Size = new System.Drawing.Size(228, 20);
-            this.mileageBox.TabIndex = 1;
-            this.mileageBox.TextChanged += new System.EventHandler(this.mileageBox_TextChanged);
+            this.label1.Text = "7k tach option:";
             // 
             // prompt
             // 
             this.prompt.AutoSize = true;
-            this.prompt.Location = new System.Drawing.Point(83, 36);
+            this.prompt.Location = new System.Drawing.Point(117, 13);
             this.prompt.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.prompt.Name = "prompt";
-            this.prompt.Size = new System.Drawing.Size(233, 13);
+            this.prompt.Size = new System.Drawing.Size(218, 13);
             this.prompt.TabIndex = 2;
-            this.prompt.Text = "Enter Mileage in Miles including a tenth position.";
+            this.prompt.Text = "Select to change 5k tach option to 7k option";
             // 
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelButton.Location = new System.Drawing.Point(266, 75);
+            this.cancelButton.Location = new System.Drawing.Point(322, 111);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 24);
@@ -80,7 +73,7 @@
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(186, 75);
+            this.okButton.Location = new System.Drawing.Point(242, 111);
             this.okButton.Margin = new System.Windows.Forms.Padding(2);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 24);
@@ -92,28 +85,58 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(85, 49);
+            this.label2.Location = new System.Drawing.Point(117, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(208, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Example Mileage 123456.7 Enter 1234567";
+            this.label2.Text = "Select to change to 140mph speedometer.";
             // 
-            // MileageForm
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(117, 71);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(278, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Only used on 03-04 clusters. Use modify options on 05-07";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(92, 11);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(15, 14);
+            this.checkBox1.TabIndex = 7;
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(92, 58);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(15, 14);
+            this.checkBox2.TabIndex = 8;
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // A7k140mphForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 109);
+            this.ClientSize = new System.Drawing.Size(406, 145);
+            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.prompt);
-            this.Controls.Add(this.mileageBox);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "MileageForm";
+            this.Name = "A7k140mphForm";
             this.Text = "Mileage Correction";
-            this.Load += new System.EventHandler(this.MileageForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -122,10 +145,12 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox mileageBox;
         private System.Windows.Forms.Label prompt;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }

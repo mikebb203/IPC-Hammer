@@ -87,6 +87,12 @@
     <Compile Include="DialogBoxes\DelayDialogBox.Designer.cs">
       <DependentUpon>DelayDialogBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="DialogBoxes\A7k140mphForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogBoxes\A7k140mphForm.designer.cs">
+      <DependentUpon>A7k140mphForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogBoxes\MileageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +127,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DialogBoxes\DelayDialogBox.resx">
       <DependentUpon>DelayDialogBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogBoxes\A7k140mphForm.resx">
+      <DependentUpon>A7k140mphForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogBoxes\MileageForm.resx">
       <DependentUpon>MileageForm.cs</DependentUpon>
