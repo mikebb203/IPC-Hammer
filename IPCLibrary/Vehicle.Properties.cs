@@ -531,6 +531,11 @@ namespace PcmHacking
             await this.device.SendMessage(message);
         }
 
+        public async Task PRNDL03()
+        {
+            Message message = this.protocol.CreatePRNDL03request();
+            await this.device.SendMessage(message);
+        }
         public async Task Lights99()
         {
             ///return await this.QueryUnsignedValue(this.protocol.CreateDisplaysonrequest, CancellationToken.None);

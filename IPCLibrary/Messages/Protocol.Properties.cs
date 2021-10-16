@@ -292,6 +292,11 @@ namespace PcmHacking
             return CreateDevicecontrolrequest(0x21, 0x88, 0x88, 0x00, 0x00, 0x00, 0x00);
         }
 
+        public Message CreatePRNDL03request()
+        {
+            return CreateDevicecontrolrequest(0x18, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00);
+        }
+
         public Message CreateLights99request()
         {
             return CreateDevicecontrolrequest(0x11, 0x5A, 0x5A, 0x00, 0x00, 0x00, 0x00);

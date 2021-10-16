@@ -633,14 +633,18 @@ namespace PcmHacking
                     this.DisableUserInput();
                     this.AddUserMessage("IPC test gauges.");
                     await this.Vehicle.SweepGauges();
-                    System.Threading.Thread.Sleep(1000);
+                    System.Threading.Thread.Sleep(750);
 
                     this.AddUserMessage("IPC test lights.");
                     await this.Vehicle.LEDson();
-                    System.Threading.Thread.Sleep(1000);
+                    System.Threading.Thread.Sleep(750);
 
                     await this.Vehicle.Displayon();
                     this.AddUserMessage("IPC test display pixels.");
+                    System.Threading.Thread.Sleep(750);
+
+                    this.AddUserMessage("IPC test prndl display.");
+                    await this.Vehicle.PRNDL03();
                 }
                 catch (Exception exception)
                 {
@@ -1715,7 +1719,9 @@ namespace PcmHacking
                     return;
                 }
 
-                DialogBoxes.OptionsForm optionForm = new DialogBoxes.OptionsForm(this.Vehicle, this);
+                uint osidResponse1 = 0307;
+
+                DialogBoxes.OptionsForm optionForm = new DialogBoxes.OptionsForm(this.Vehicle, this, osidResponse1);
                 optionForm.Option = optionResponse.Value;
                 DialogResult dialogResult = optionForm.ShowDialog();
 
@@ -1806,7 +1812,7 @@ namespace PcmHacking
                     return;
                 }
 
-                DialogBoxes.OptionsForm optionForm = new DialogBoxes.OptionsForm(this.Vehicle, this);
+                DialogBoxes.OptionsForm optionForm = new DialogBoxes.OptionsForm(this.Vehicle, this, osidResponse);
                 optionForm.Option = optionResponse.Value;
                 DialogResult dialogResult = optionForm.ShowDialog();
 
