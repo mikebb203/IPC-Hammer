@@ -102,7 +102,7 @@
             // hoursBox
             // 
             this.hoursBox.Location = new System.Drawing.Point(88, 142);
-            this.hoursBox.MaxLength = 4;
+            this.hoursBox.MaxLength = 5;
             this.hoursBox.Name = "hoursBox";
             this.hoursBox.Size = new System.Drawing.Size(87, 20);
             this.hoursBox.TabIndex = 7;

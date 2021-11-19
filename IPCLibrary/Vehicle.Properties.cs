@@ -461,9 +461,9 @@ namespace PcmHacking
         }
         public async Task<Response<bool>> UpdateHours(string hours)
         { 
-            if (hours.Length >= 6) // should never happen, but....
+            if (hours.Length >= 7) // should never happen, but....
             {
-                this.logger.AddUserMessage("Hours" + hours + " is not less than 6 characters long!");
+                this.logger.AddUserMessage("Hours" + hours + " is not less than 7 characters long!");
                 return Response.Create(ResponseStatus.Error, false);
             }
 
@@ -472,7 +472,7 @@ namespace PcmHacking
             uint inthours = uint.Parse(hours, System.Globalization.NumberStyles.Integer);
             //byte[] bmileage = Encoding.ASCII.GetBytes(mileage);
             byte[] bhours = BitConverter.GetBytes(inthours);
-            byte[] hour = new byte[6] { 0x01, 0x00, 0x00, bhours[1], bhours[0], 0x00};
+            byte[] hour = new byte[6] { 0x01, 0x00, bhours[2], bhours[1], bhours[0], 0x00};
 
 
             Response<bool> block2 = await DeviceControl(0x23, hour);

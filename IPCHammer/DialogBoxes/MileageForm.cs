@@ -131,7 +131,7 @@ namespace PcmHacking.DialogBoxes
         private bool IsLegalHours()
         {
 
-            if (this.hoursBox.Text.Length >= 5)
+            if (this.hoursBox.Text.Length >= 6)
             {
                 this.prompt.Text = $"Hours should be no more than 4. {this.hoursBox.Text.Length}.";
                 return false;
