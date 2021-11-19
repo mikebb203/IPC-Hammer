@@ -36,7 +36,7 @@ namespace PcmHacking
         /// 
         /// If not null, use a number like "004" that matches a release branch.
         /// </summary>
-        private const string AppVersion = "016.1";
+        private const string AppVersion = "016.3";
 
         /// <summary>
         /// We had to move some operations to a background thread for the J2534 code as the DLL functions do not have an awaiter.
@@ -298,9 +298,9 @@ namespace PcmHacking
 
             var choice = MessageBox.Show(
                 this,
-                "Closing PCM Hammer now could make your PCM unusable." + Environment.NewLine +
+                "Closing IPC Hammer now could make your IPC unusable." + Environment.NewLine +
                 "Are you sure you want to take that risk?",
-                "PCM Hammer",
+                "IPC Hammer",
                 MessageBoxButtons.YesNo);
 
             if (choice == DialogResult.No)
@@ -1750,6 +1750,14 @@ namespace PcmHacking
             {
                 this.AddUserMessage("Options change failed: " + exception.ToString());
             }
+
+            var option1Response = await this.Vehicle.QueryIPCoptions();
+            if (option1Response.Status != ResponseStatus.Success)
+            {
+                this.AddUserMessage("IPC options query failed: " + option1Response.Status.ToString());
+                return;
+            }
+
         }
 
         private async void mileageCorrectionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1771,28 +1779,46 @@ namespace PcmHacking
 
                 if (dialogResult == DialogResult.OK)
                 {
-                    bool unlocked = await this.Vehicle.UnlockEcu(info.KeyAlgorithm);
-                    if (!unlocked)
+                    if (mileageForm.Mileage.Length > 1)
                     {
-                        this.AddUserMessage("Unable to unlock PCM.");
-                        return;
+                        bool unlocked = await this.Vehicle.UnlockEcu(info.KeyAlgorithm);
+                        if (!unlocked)
+                        {
+                            this.AddUserMessage("Unable to unlock PCM.");
+                            return;
+                        }
+
+                        Response<bool> mileagemodified = await this.Vehicle.UpdateMileage(mileageForm.Mileage.Trim());
+                        if (mileagemodified.Value)
+                        {
+                            this.AddUserMessage("Mileage successfully updated to " + mileageForm.Mileage);
+                            MessageBox.Show("Mileage updated to " + mileageForm.Mileage + " successfully.", "Good news.", MessageBoxButtons.OK);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Unable to change the Mileage to " + mileageForm.Mileage + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
+                        }
                     }
 
-                    Response<bool> mileagemodified = await this.Vehicle.UpdateMileage(mileageForm.Mileage.Trim());
-                    if (mileagemodified.Value)
+                    if (mileageForm.Hours.Length > 1)
                     {
-                        this.AddUserMessage("Mileage successfully updated to " + mileageForm.Mileage);
-                        MessageBox.Show("Mileage updated to " + mileageForm.Mileage + " successfully.", "Good news.", MessageBoxButtons.OK);
+                        Response<bool> mileagemodified = await this.Vehicle.UpdateHours(mileageForm.Hours.Trim());
+                        if (mileagemodified.Value)
+                        {
+                            this.AddUserMessage("Hours successfully updated to " + mileageForm.Hours);
+                            MessageBox.Show("Hours updated to " + mileageForm.Hours + " successfully.", "Good news.", MessageBoxButtons.OK);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Unable to change the Hours to " + mileageForm.Hours + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
+                        }
                     }
-                    else
-                    {
-                        MessageBox.Show("Unable to change the Mileage to " + mileageForm.Mileage + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
-                    }
+
                 }
             }
             catch (Exception exception)
             {
-                this.AddUserMessage("Mileage change failed: " + exception.ToString());
+                this.AddUserMessage("Mileage or Hours change failed: " + exception.ToString());
             }
         }
 
@@ -1841,6 +1867,14 @@ namespace PcmHacking
             {
                 this.AddUserMessage("Options change failed: " + exception.ToString());
             }
+
+            var option1Response = await this.Vehicle.QueryIPCoptions99();
+            if (option1Response.Status != ResponseStatus.Success)
+            {
+                this.AddUserMessage("IPC options query failed: " + option1Response.Status.ToString());
+                return;
+            }
+
         }
 
         private async void testipc99_Click(object sender, EventArgs e)

@@ -453,12 +453,32 @@ namespace PcmHacking
             byte[] bmileage = BitConverter.GetBytes(intmileage);
             byte[] miles = new byte[5] { 0x45, bmileage[3], bmileage[2], bmileage[1], bmileage[0] };
 
-            
+
             Response<bool> block1 = await WriteBlock(0x99, miles);
             if (block1.Status != ResponseStatus.Success) return Response.Create(ResponseStatus.Error, false);
-           
-            return Response.Create(ResponseStatus.Success, true);
 
+            return Response.Create(ResponseStatus.Success, true);
+        }
+        public async Task<Response<bool>> UpdateHours(string hours)
+        { 
+            if (hours.Length >= 6) // should never happen, but....
+            {
+                this.logger.AddUserMessage("Hours" + hours + " is not less than 6 characters long!");
+                return Response.Create(ResponseStatus.Error, false);
+            }
+
+            this.logger.AddUserMessage("Changing Hours to " + hours);
+
+            uint inthours = uint.Parse(hours, System.Globalization.NumberStyles.Integer);
+            //byte[] bmileage = Encoding.ASCII.GetBytes(mileage);
+            byte[] bhours = BitConverter.GetBytes(inthours);
+            byte[] hour = new byte[6] { 0x01, 0x00, 0x00, bhours[1], bhours[0], 0x00};
+
+
+            Response<bool> block2 = await DeviceControl(0x23, hour);
+            if (block2.Status != ResponseStatus.Success) return Response.Create(ResponseStatus.Error, false);
+
+            return Response.Create(ResponseStatus.Success, true);
         }
 
         /// <summary>

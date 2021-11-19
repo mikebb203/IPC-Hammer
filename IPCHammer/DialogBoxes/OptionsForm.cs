@@ -47,35 +47,35 @@ namespace PcmHacking.DialogBoxes
         {
 
             this.textBox1.Text = this.Option;
-            var option1 = Option.Substring(0, 2);
-            var option2 = Option.Substring(2, 2);
-            byte option1byte = byte.Parse(option1, System.Globalization.NumberStyles.HexNumber);
-            byte option2byte = byte.Parse(option2, System.Globalization.NumberStyles.HexNumber);
-            this.textBox2.Text = option1byte.ToString("X2");
-            this.textBox3.Text = option2byte.ToString("X2");
-
-
-
-            BitArray option1bits = new BitArray(BitConverter.GetBytes(option1byte).ToArray());
-            BitArray option2bits = new BitArray(BitConverter.GetBytes(option2byte).ToArray());
-
-            checkBox1.Checked = option1bits[7];
-            checkBox2.Checked = option1bits[6];
-            checkBox3.Checked = option1bits[5];
-            checkBox4.Checked = option1bits[4];
-            checkBox5.Checked = option1bits[3];
-            checkBox6.Checked = option1bits[2];
-            checkBox7.Checked = option1bits[1];
-            checkBox8.Checked = option1bits[0];
+            ///var option1 = Option.Substring(0, 2);
+            ///var option2 = Option.Substring(2, 2);
+            ///byte option1byte = byte.Parse(option1, System.Globalization.NumberStyles.HexNumber);
+            ///byte option2byte = byte.Parse(option2, System.Globalization.NumberStyles.HexNumber);
+            ///this.textBox2.Text = option1byte.ToString("X2");
+            ///this.textBox3.Text = option2byte.ToString("X2");
             
-            checkBox9.Checked = option2bits[7];
-            checkBox10.Checked = option2bits[6];
-            checkBox11.Checked = option2bits[5];
-            checkBox12.Checked = option2bits[4];
-            checkBox13.Checked = option2bits[3];
-            checkBox14.Checked = option2bits[2];
-            checkBox15.Checked = option2bits[1];
-            checkBox16.Checked = option2bits[0];
+
+
+            ///BitArray option1bits = new BitArray(BitConverter.GetBytes(option1byte).ToArray());
+            ///BitArray option2bits = new BitArray(BitConverter.GetBytes(option2byte).ToArray());
+
+            ///checkBox1.Checked = option1bits[7];
+            ///checkBox2.Checked = option1bits[6];
+            ///checkBox3.Checked = option1bits[5];
+            ///checkBox4.Checked = option1bits[4];
+            ///checkBox5.Checked = option1bits[3];
+            ///checkBox6.Checked = option1bits[2];
+            ///checkBox7.Checked = option1bits[1];
+            ///checkBox8.Checked = option1bits[0];
+            
+            ///checkBox9.Checked = option2bits[7];
+            ///checkBox10.Checked = option2bits[6];
+            ///checkBox11.Checked = option2bits[5];
+            ///checkBox12.Checked = option2bits[4];
+            ///checkBox13.Checked = option2bits[3];
+            ///checkBox14.Checked = option2bits[2];
+            ///checkBox15.Checked = option2bits[1];
+            ///checkBox16.Checked = option2bits[0];
 
             switch (osidResponse)
             {
@@ -454,5 +454,48 @@ namespace PcmHacking.DialogBoxes
             this.textBox1.Text = string.Concat(this.textBox2.Text, this.textBox3.Text);
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (this.textBox1.TextLength == 4)
+            {
+                var option1 = this.textBox1.Text.Substring(0, 2);
+                var option2 = this.textBox1.Text.Substring(2, 2);
+                byte option1byte = byte.Parse(option1, System.Globalization.NumberStyles.HexNumber);
+                byte option2byte = byte.Parse(option2, System.Globalization.NumberStyles.HexNumber);
+                this.textBox2.Text = option1byte.ToString("X2");
+                this.textBox3.Text = option2byte.ToString("X2");
+
+                BitArray option1bits = new BitArray(BitConverter.GetBytes(option1byte).ToArray());
+                BitArray option2bits = new BitArray(BitConverter.GetBytes(option2byte).ToArray());
+
+                checkBox1.Checked = option1bits[7];
+                checkBox2.Checked = option1bits[6];
+                checkBox3.Checked = option1bits[5];
+                checkBox4.Checked = option1bits[4];
+                checkBox5.Checked = option1bits[3];
+                checkBox6.Checked = option1bits[2];
+                checkBox7.Checked = option1bits[1];
+                checkBox8.Checked = option1bits[0];
+
+                checkBox9.Checked = option2bits[7];
+                checkBox10.Checked = option2bits[6];
+                checkBox11.Checked = option2bits[5];
+                checkBox12.Checked = option2bits[4];
+                checkBox13.Checked = option2bits[3];
+                checkBox14.Checked = option2bits[2];
+                checkBox15.Checked = option2bits[1];
+                checkBox16.Checked = option2bits[0];
+            }
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            this.textBox1.Text = string.Concat(this.textBox2.Text, this.textBox3.Text);
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            this.textBox1.Text = string.Concat(this.textBox2.Text, this.textBox3.Text);
+        }
     }
 }

@@ -35,6 +35,7 @@
             this.selectButton = new System.Windows.Forms.Button();
             this.deviceDescription = new System.Windows.Forms.Label();
             this.operationsBox = new System.Windows.Forms.GroupBox();
+            this.testipc99 = new System.Windows.Forms.Button();
             this.Modify_options99 = new System.Windows.Forms.Button();
             this.Checksum_test = new System.Windows.Forms.Button();
             this.Modify_options = new System.Windows.Forms.Button();
@@ -60,7 +61,6 @@
             this.mileageCorrectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemEnable4xReadWrite = new System.Windows.Forms.ToolStripMenuItem();
-            this.testipc99 = new System.Windows.Forms.Button();
             this.interfaceBox.SuspendLayout();
             this.operationsBox.SuspendLayout();
             this.tabs.SuspendLayout();
@@ -138,6 +138,16 @@
             this.operationsBox.TabIndex = 1;
             this.operationsBox.TabStop = false;
             this.operationsBox.Text = "Operations";
+            // 
+            // testipc99
+            // 
+            this.testipc99.Location = new System.Drawing.Point(5, 194);
+            this.testipc99.Name = "testipc99";
+            this.testipc99.Size = new System.Drawing.Size(213, 23);
+            this.testipc99.TabIndex = 13;
+            this.testipc99.Text = "Test IPC 99-02";
+            this.testipc99.UseVisualStyleBackColor = true;
+            this.testipc99.Click += new System.EventHandler(this.testipc99_Click);
             // 
             // Modify_options99
             // 
@@ -381,15 +391,15 @@
             // modifyVINToolStripMenuItem
             // 
             this.modifyVINToolStripMenuItem.Name = "modifyVINToolStripMenuItem";
-            this.modifyVINToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.modifyVINToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.modifyVINToolStripMenuItem.Text = "&Change VIN";
             this.modifyVINToolStripMenuItem.Click += new System.EventHandler(this.modifyVinButton_Click);
             // 
             // mileageCorrectionToolStripMenuItem
             // 
             this.mileageCorrectionToolStripMenuItem.Name = "mileageCorrectionToolStripMenuItem";
-            this.mileageCorrectionToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.mileageCorrectionToolStripMenuItem.Text = "Mileage Correction";
+            this.mileageCorrectionToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.mileageCorrectionToolStripMenuItem.Text = "Mileage + Hours Correction";
             this.mileageCorrectionToolStripMenuItem.Click += new System.EventHandler(this.mileageCorrectionToolStripMenuItem_Click);
             // 
             // menuItemOptions
@@ -407,16 +417,6 @@
             this.menuItemEnable4xReadWrite.Text = "Enable &4x Communication";
             this.menuItemEnable4xReadWrite.Click += new System.EventHandler(this.enable4xReadWrite_Click);
             // 
-            // testipc99
-            // 
-            this.testipc99.Location = new System.Drawing.Point(5, 194);
-            this.testipc99.Name = "testipc99";
-            this.testipc99.Size = new System.Drawing.Size(213, 23);
-            this.testipc99.TabIndex = 13;
-            this.testipc99.Text = "Test IPC 99-02";
-            this.testipc99.UseVisualStyleBackColor = true;
-            this.testipc99.Click += new System.EventHandler(this.testipc99_Click);
-            // 
             // MainForm
             // 
             this.AcceptButton = this.readPropertiesButton;
@@ -431,7 +431,7 @@
             this.MainMenuStrip = this.menuStripMain;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
-            this.Text = "PCM Hammer";
+            this.Text = "IPC Hammer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.interfaceBox.ResumeLayout(false);

@@ -81,10 +81,48 @@ namespace PcmHacking
             return Response.Create(ResponseStatus.Success, true);
         }
 
-        /// <summary>
-        /// Opens the named kernel file. The file must be in the same directory as the EXE.
+        ///<summary>
+        /// Sends Device control message.
         /// </summary>
-        public async Task<Response<byte[]>> LoadKernelFromFile(string path)
+
+        private async Task<Response<bool>> DeviceControl(byte block, byte[] data)
+        {
+            Message m;
+            Message ok = new Message(new byte[] { 0x6C, DeviceId.Tool, DeviceId.Pcm, 0xEE, block });
+
+            switch (data.Length)
+            {
+                case 6:
+                    m = new Message(new byte[] { 0x6C, DeviceId.Pcm, DeviceId.Tool, 0xAE, block, data[0], data[1], data[2], data[3], data[4], data[5] });
+                    break;
+                case 5:
+                    m = new Message(new byte[] { 0x6C, DeviceId.Pcm, DeviceId.Tool, 0xAE, block, data[0], data[1], data[2], data[3], data[4] });
+                    break;
+                case 3:
+                    m = new Message(new byte[] { 0x6C, DeviceId.Pcm, DeviceId.Tool, 0xAE, block, data[0], data[1], data[2] });
+                    break;
+                case 2:
+                    m = new Message(new byte[] { 0x6C, DeviceId.Pcm, DeviceId.Tool, 0xAE, block, data[0], data[1] });
+                    break;
+                default:
+                    logger.AddDebugMessage("Cant write block size " + data.Length);
+                    return Response.Create(ResponseStatus.Error, false);
+            }
+
+            if (!await this.device.SendMessage(m))
+            {
+                logger.AddUserMessage("Failed to write block " + block + ", communications failure");
+                return Response.Create(ResponseStatus.Error, false);
+            }
+
+            logger.AddDebugMessage("Successful write to block " + block);
+            return Response.Create(ResponseStatus.Success, true);
+
+        }
+            /// <summary>
+            /// Opens the named kernel file. The file must be in the same directory as the EXE.
+            /// </summary>
+            public async Task<Response<byte[]>> LoadKernelFromFile(string path)
         {
             byte[] file = { 0x00 }; // dummy value
 
