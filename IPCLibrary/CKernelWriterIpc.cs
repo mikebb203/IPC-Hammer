@@ -22,6 +22,7 @@ namespace PcmHacking
         Full,
         Ipc,
         Ipc1,
+        
     }
 
     public class CKernelWriterIpc
@@ -39,6 +40,12 @@ namespace PcmHacking
             this.logger = logger;
         }
 
+        public CKernelWriterIpc(Vehicle vehicle, ILogger logger)
+        {
+            this.vehicle = vehicle;
+            this.logger = logger;
+
+        }
         /// <summary>
         /// Write changes to the IPC's flash memory, or just test writing (Without 
         /// making changes) to evaluate the connection quality.
@@ -363,7 +370,52 @@ namespace PcmHacking
 
                 return Response.Create(ResponseStatus.Success, true, retryCount);
         }
-        
 
+        public async Task<bool> WriteKernel(
+            byte[] kernel,
+            CancellationToken cancellationToken)
+        {
+            bool success = false;
+
+            try
+            {
+                // Start with known state.
+                await this.vehicle.ForceSendToolPresentNotification();
+                this.vehicle.ClearDeviceMessageQueue();
+
+                int address1 = 0x020000;
+                int claimedSize1 = 0x000002;
+                if (!await this.vehicle.PCMStartProgram(address1, claimedSize1, cancellationToken))
+                {
+                    logger.AddUserMessage("Start Program to IPC denied");
+
+                    return false;
+                }
+
+                logger.AddUserMessage("Start Program to IPC allowed.");
+
+                // TODO: instead of this hard-coded address, get the base address from the PcmInfo object.
+                if (!await this.vehicle.IPCExecute(kernel, 0x00C000, 0x028E, cancellationToken))
+                    {
+                        logger.AddUserMessage("Failed to upload kernel to IPC");
+
+                        return false;
+                    }
+
+                    logger.AddUserMessage("Kernel uploaded to IPC succesfully.");
+
+                return success;
+            }
+            catch (Exception exception)
+            {
+                if (!success)
+                {
+                    this.logger.AddUserMessage("Something went wrong. " + exception.Message);
+                    return false;
+                }
+
+                return success;
+            }
+        }
     }
 }

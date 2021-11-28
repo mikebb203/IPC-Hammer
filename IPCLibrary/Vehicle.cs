@@ -41,7 +41,7 @@ namespace PcmHacking
         /// This class knows how to generate message to send to the PCM.
         /// </summary>
         private Protocol protocol;
-        
+
         /// <summary>
         /// This is how we send user-friendly status messages and developer-oriented debug messages to the UI.
         /// </summary>
@@ -85,7 +85,7 @@ namespace PcmHacking
         /// Constructor.
         /// </summary>
         public Vehicle(
-            Device device, 
+            Device device,
             Protocol protocol,
             ILogger logger,
             ToolPresentNotifier notifier)
@@ -180,8 +180,8 @@ namespace PcmHacking
         /// Query factory. One could argue that this is in the wrong place.
         /// </summary>
         public Query<T> CreateQuery<T>(
-            Func<Message> generator, 
-            Func<Message,Response<T>> parser, 
+            Func<Message> generator,
+            Func<Message, Response<T>> parser,
             CancellationToken cancellationToken)
         {
             return new Query<T>(
@@ -374,7 +374,7 @@ namespace PcmHacking
         /// </summary>
         private async Task<bool> WaitForSuccess(Func<Message, Response<bool>> filter, CancellationToken cancellationToken, int attempts = MaxReceiveAttempts)
         {
-            for(int attempt = 1; attempt<=attempts; attempt++)
+            for (int attempt = 1; attempt <= attempts; attempt++)
             {
                 if (cancellationToken.IsCancellationRequested)
                 {
@@ -382,7 +382,7 @@ namespace PcmHacking
                 }
 
                 Message message = await this.device.ReceiveMessage();
-                if(message == null)
+                if (message == null)
                 {
                     await this.SendToolPresentNotification();
                     continue;
@@ -446,6 +446,66 @@ namespace PcmHacking
             }
 
             return Response.Create<byte[]>(lastStatus, new byte[0]);
+        }
+
+        public async Task<ushort> GetSeed()
+        {
+            await this.device.SetTimeout(TimeoutScenario.ReadProperty);
+
+            this.device.ClearMessageQueue();
+
+            this.logger.AddDebugMessage("Sending seed request.");
+            Message seedRequest = this.protocol.CreateSeedRequest();
+
+            if (!await this.TrySendMessage(seedRequest, "seed request"))
+            {
+                this.logger.AddUserMessage("Unable to send seed request.");
+                return 0x0000;
+            }
+
+            bool seedReceived = false;
+            UInt16 seedValue = 0;
+
+            for (int attempt = 1; attempt < MaxReceiveAttempts; attempt++)
+            {
+                Message seedResponse = await this.device.ReceiveMessage();
+                if (seedResponse == null)
+                {
+                    this.logger.AddDebugMessage("No response to seed request.");
+                    return 0x0000;
+                }
+
+                if (this.protocol.IsUnlocked(seedResponse.GetBytes()))
+                {
+                    this.logger.AddUserMessage("PCM is already unlocked");
+                    return 0x0000;
+                }
+
+                this.logger.AddDebugMessage("Parsing seed value.");
+                Response<UInt16> seedValueResponse = this.protocol.ParseSeed(seedResponse.GetBytes());
+                if (seedValueResponse.Status == ResponseStatus.Success)
+                {
+                    seedValue = seedValueResponse.Value;
+                    seedReceived = true;
+                    break;
+                }
+
+                this.logger.AddDebugMessage("Unable to parse seed response. Attempt #" + attempt.ToString());
+            }
+
+            if (!seedReceived)
+            {
+                this.logger.AddUserMessage("No seed reponse received, unable to unlock PCM.");
+                return 0x0000;
+            }
+
+            if (seedValue == 0x0000)
+            {
+                this.logger.AddUserMessage("PCM Unlock not required");
+                return 0x0000;
+            }
+
+            return seedValue;
         }
     }
 }

@@ -44,6 +44,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.prompt = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -73,7 +74,7 @@
             this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 24);
-            this.cancelButton.TabIndex = 4;
+            this.cancelButton.TabIndex = 6;
             this.cancelButton.Text = "&Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -85,7 +86,7 @@
             this.okButton.Margin = new System.Windows.Forms.Padding(2);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 24);
-            this.okButton.TabIndex = 3;
+            this.okButton.TabIndex = 5;
             this.okButton.Text = "&OK";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
@@ -96,7 +97,7 @@
             this.label3.Location = new System.Drawing.Point(27, 145);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 13);
-            this.label3.TabIndex = 6;
+            this.label3.TabIndex = 0;
             this.label3.Text = "Hours:";
             // 
             // hoursBox
@@ -105,7 +106,7 @@
             this.hoursBox.MaxLength = 5;
             this.hoursBox.Name = "hoursBox";
             this.hoursBox.Size = new System.Drawing.Size(87, 20);
-            this.hoursBox.TabIndex = 7;
+            this.hoursBox.TabIndex = 3;
             // 
             // hourstenthsBox
             // 
@@ -113,7 +114,7 @@
             this.hourstenthsBox.MaxLength = 1;
             this.hourstenthsBox.Name = "hourstenthsBox";
             this.hourstenthsBox.Size = new System.Drawing.Size(34, 20);
-            this.hourstenthsBox.TabIndex = 8;
+            this.hourstenthsBox.TabIndex = 4;
             // 
             // mileagetenthsBox
             // 
@@ -121,7 +122,7 @@
             this.mileagetenthsBox.MaxLength = 1;
             this.mileagetenthsBox.Name = "mileagetenthsBox";
             this.mileagetenthsBox.Size = new System.Drawing.Size(34, 20);
-            this.mileagetenthsBox.TabIndex = 9;
+            this.mileagetenthsBox.TabIndex = 2;
             // 
             // label4
             // 
@@ -147,7 +148,7 @@
             this.label2.Location = new System.Drawing.Point(111, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 13);
-            this.label2.TabIndex = 12;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Miles";
             // 
             // label6
@@ -156,7 +157,7 @@
             this.label6.Location = new System.Drawing.Point(191, 53);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(40, 13);
-            this.label6.TabIndex = 13;
+            this.label6.TabIndex = 0;
             this.label6.Text = "Tenths";
             // 
             // label7
@@ -165,7 +166,7 @@
             this.label7.Location = new System.Drawing.Point(111, 123);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(35, 13);
-            this.label7.TabIndex = 14;
+            this.label7.TabIndex = 0;
             this.label7.Text = "Hours";
             // 
             // label8
@@ -174,7 +175,7 @@
             this.label8.Location = new System.Drawing.Point(191, 123);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(40, 13);
-            this.label8.TabIndex = 15;
+            this.label8.TabIndex = 0;
             this.label8.Text = "Tenths";
             // 
             // label10
@@ -193,11 +194,20 @@
             this.label11.Size = new System.Drawing.Size(0, 13);
             this.label11.TabIndex = 18;
             // 
+            // prompt
+            // 
+            this.prompt.AutoSize = true;
+            this.prompt.Location = new System.Drawing.Point(88, 224);
+            this.prompt.Name = "prompt";
+            this.prompt.Size = new System.Drawing.Size(0, 13);
+            this.prompt.TabIndex = 0;
+            // 
             // MileageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(408, 380);
+            this.Controls.Add(this.prompt);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label8);

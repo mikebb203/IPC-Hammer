@@ -1779,41 +1779,132 @@ namespace PcmHacking
 
                 if (dialogResult == DialogResult.OK)
                 {
-                    if (mileageForm.Mileage.Length > 1)
+                    if (info.Description == "03 GMT800 IPC")
                     {
-                        bool unlocked = await this.Vehicle.UnlockEcu(info.KeyAlgorithm);
-                        if (!unlocked)
+                        if (mileageForm.Hours.Length > 1)
                         {
-                            this.AddUserMessage("Unable to unlock PCM.");
-                            return;
+                            string path = null;
+
+                            string filename = info.Kernelname;
+                            string dir = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                            string exeDirectory = Path.GetDirectoryName(dir);
+                            path = Path.Combine(exeDirectory, filename);
+
+
+                            byte[] mileagekernel;
+                            using (Stream stream = File.OpenRead(path))
+                            {
+                                mileagekernel = new byte[stream.Length];
+                                int bytesRead = await stream.ReadAsync(mileagekernel, 0, (int)stream.Length);
+                                if (bytesRead != stream.Length)
+                                {
+                                    /// If this happens too much, we should try looping rather than reading the whole file in one shot.
+                                    this.AddUserMessage("Unable to load kernel.");
+                                    return;
+                                }
+                            }
+
+                            ushort seedValue = await this.Vehicle.GetSeed();
+
+
+                            ushort seedResult = (ushort)(seedValue >> 2 | seedValue << 14);
+
+                            uint inthours = uint.Parse(mileageForm.Hours, System.Globalization.NumberStyles.Integer);
+                            byte[] ihours = BitConverter.GetBytes(seedResult);
+                            byte[] bhours = BitConverter.GetBytes(inthours);
+
+                            mileagekernel[0x17C] = ihours[1];
+                            mileagekernel[0x17D] = ihours[0];
+
+                            mileagekernel[0x183] = bhours[2];
+                            mileagekernel[0x181] = bhours[0];
+                            mileagekernel[0x17F] = bhours[1];
+
+                            bool unlocked = await this.Vehicle.UnlockEcu(info.KeyAlgorithm);
+                            if (!unlocked)
+                            {
+                                this.AddUserMessage("Unable to unlock IPC.");
+                                return;
+                            }
+
+
+                            CKernelWriterIpc writer = new CKernelWriterIpc(
+                                this.Vehicle,
+                                new Protocol(),
+                                currentWriteTypeIpc,
+                                this);
+
+                            await writer.WriteKernel(
+                                mileagekernel,
+                                CancellationToken.None);
+
+                            await Task.Delay(1000);
+
                         }
 
-                        Response<bool> mileagemodified = await this.Vehicle.UpdateMileage(mileageForm.Mileage.Trim());
-                        if (mileagemodified.Value)
+                        if (mileageForm.Mileage.Length > 1)
                         {
-                            this.AddUserMessage("Mileage successfully updated to " + mileageForm.Mileage);
-                            MessageBox.Show("Mileage updated to " + mileageForm.Mileage + " successfully.", "Good news.", MessageBoxButtons.OK);
+                            bool unlocked = await this.Vehicle.UnlockEcu(info.KeyAlgorithm);
+                            if (!unlocked)
+                            {
+                                this.AddUserMessage("Unable to unlock IPC.");
+                                return;
+                            }
+
+                            Response<bool> mileagemodified = await this.Vehicle.UpdateMileage(mileageForm.Mileage.Trim());
+                            if (mileagemodified.Value)
+                            {
+                                this.AddUserMessage("Mileage successfully updated to " + mileageForm.Mileage);
+                                MessageBox.Show("Mileage updated to " + mileageForm.Mileage + " successfully.", "Good news.", MessageBoxButtons.OK);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Unable to change the Mileage to " + mileageForm.Mileage + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
+                            }
                         }
-                        else
-                        {
-                            MessageBox.Show("Unable to change the Mileage to " + mileageForm.Mileage + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
-                        }
+
                     }
 
-                    if (mileageForm.Hours.Length > 1)
+
+
+
+                    if (info.Description != "03 GMT800 IPC")
                     {
-                        Response<bool> mileagemodified = await this.Vehicle.UpdateHours(mileageForm.Hours.Trim());
-                        if (mileagemodified.Value)
+                        if (mileageForm.Mileage.Length > 1)
                         {
-                            this.AddUserMessage("Hours successfully updated to " + mileageForm.Hours);
-                            MessageBox.Show("Hours updated to " + mileageForm.Hours + " successfully.", "Good news.", MessageBoxButtons.OK);
+                            bool unlocked = await this.Vehicle.UnlockEcu(info.KeyAlgorithm);
+                            if (!unlocked)
+                            {
+                                this.AddUserMessage("Unable to unlock PCM.");
+                                return;
+                            }
+
+                            Response<bool> mileagemodified = await this.Vehicle.UpdateMileage(mileageForm.Mileage.Trim());
+                            if (mileagemodified.Value)
+                            {
+                                 this.AddUserMessage("Mileage successfully updated to " + mileageForm.Mileage);
+                                 MessageBox.Show("Mileage updated to " + mileageForm.Mileage + " successfully.", "Good news.", MessageBoxButtons.OK);
+                            }
+                                else
+                                {
+                                    MessageBox.Show("Unable to change the Mileage to " + mileageForm.Mileage + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
+                                }
                         }
-                        else
+
+                        if (mileageForm.Hours.Length > 1)
                         {
-                            MessageBox.Show("Unable to change the Hours to " + mileageForm.Hours + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
+                            Response<bool> mileagemodified = await this.Vehicle.UpdateHours(mileageForm.Hours.Trim());
+                            if (mileagemodified.Value)
+                            {
+                                this.AddUserMessage("Hours successfully updated to " + mileageForm.Hours);
+                                MessageBox.Show("Hours updated to " + mileageForm.Hours + " successfully.", "Good news.", MessageBoxButtons.OK);
+                            }
+                                else
+                                {
+                                    MessageBox.Show("Unable to change the Hours to " + mileageForm.Hours + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
+                                }
                         }
                     }
-
                 }
             }
             catch (Exception exception)
