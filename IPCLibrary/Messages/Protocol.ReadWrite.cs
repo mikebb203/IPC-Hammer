@@ -50,6 +50,37 @@ namespace PcmHacking
         }
 
         /// <summary>
+        /// Create a block message from the supplied arguments.
+        /// </summary>
+        public Message CreateBlockMessagemiles(byte[] Payload, int Offset, int Length, int Address, byte execute)
+        {
+            byte[] Buffer = new byte[10 + Length + 2];
+            byte[] Header = new byte[10];
+
+            byte Size1 = unchecked((byte)(Length >> 8));
+            byte Size2 = unchecked((byte)(Length & 0xFF));
+            byte Addr1 = unchecked((byte)(Address >> 16));
+            byte Addr2 = unchecked((byte)(Address >> 8));
+            byte Addr3 = unchecked((byte)(Address & 0xFF));
+
+            Header[0] = Priority.Block;
+            Header[1] = DeviceId.Pcm;
+            Header[2] = DeviceId.Tool;
+            Header[3] = Mode.PCMUpload;
+            Header[4] = execute;
+            Header[5] = Size1;
+            Header[6] = Size2;
+            Header[7] = Addr1;
+            Header[8] = Addr2;
+            Header[9] = Addr3;
+
+            System.Buffer.BlockCopy(Header, 0, Buffer, 0, Header.Length);
+            System.Buffer.BlockCopy(Payload, Offset, Buffer, Header.Length, Length);
+
+            return new Message(VpwUtilities.AddBlockChecksum(Buffer));
+        }
+
+        /// <summary>
         /// Create a request to uploade size bytes to the given address
         /// </summary>
         /// <remarks>
@@ -64,6 +95,19 @@ namespace PcmHacking
             requestBytes[8] = unchecked((byte)(Address >> 8));
             requestBytes[9] = unchecked((byte)(Address & 0xFF));
 
+            return new Message(requestBytes);
+        }
+
+        /// <summary>
+        /// Create a request to upload no size or address
+        /// </summary>
+        /// <remarks>
+        /// Note that mode 0x34 is only a request. The actual payload is sent as a mode 0x36.
+        /// </remarks>
+        public Message CreateUploadRequestnoaddress()
+        {
+            byte[] requestBytes = { Priority.Physical0, DeviceId.Pcm, DeviceId.Tool, Mode.PCMUploadRequest};
+            
             return new Message(requestBytes);
         }
 
@@ -141,13 +185,16 @@ namespace PcmHacking
         /// </summary>
         public Response<bool> ParseUploadResponse1(Message message)
         {
-            return this.DoSimpleValidation2(message, Priority.Physical0High, Mode.PCMUpload, 0x00, 0x73, 0x86);
+            return this.DoSimpleValidation2(message, Priority.Physical0High, Mode.PCMUpload, message[4], 0x73, 0x86);
         }
 
         public Response<bool> ParseUploadResponse2(Message message)
         {
-            return this.DoSimpleValidation3(message, Priority.Physical0High, Mode.PCMUpload, 0x00, 0x78);
+            return this.DoSimpleValidation3(message, Priority.Physical0High, Mode.PCMUpload, message[4], 0x78);
         }
+        
+        
+
         /// <summary>
         /// Create a request to read an arbitrary address range.
         /// </summary>

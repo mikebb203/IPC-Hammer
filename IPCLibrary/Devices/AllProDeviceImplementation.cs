@@ -119,7 +119,7 @@ namespace PcmHacking
                         break;
 
                     case TimeoutScenario.SendKernel:
-                        milliseconds = 50;
+                        milliseconds = 500;
                         break;
 
                     case TimeoutScenario.DataLogging1:

@@ -726,5 +726,81 @@ namespace PcmHacking
             this.logger.AddDebugMessage("Giving up.");
             return Response.Create(ResponseStatus.Error, false, retryCount);
         }
+
+        /// <summary>
+        /// Load the executable payload on the PCM at the supplied address, and execute it.
+        /// </summary>
+        public async Task<bool> IPCExecute(byte[] payload, int address, int claimedSize, CancellationToken cancellationToken)
+        {
+           
+            bool uploadAllowed = false;
+            for (int attempt = 0; attempt < 5; attempt++)
+            {
+                logger.AddUserMessage("Requesting permission to upload kernel.");
+                await this.SetDeviceTimeout(TimeoutScenario.ReadProperty);
+                Message request = protocol.CreateUploadRequestnoaddress();
+                if (!await TrySendMessage(request, "upload request"))
+                {
+                    return false;
+                }
+
+                if (await this.WaitForSuccess(this.protocol.ParseUploadPermissionResponse, cancellationToken))
+                {
+                    logger.AddUserMessage("Upload permission granted.");
+                    uploadAllowed = true;
+                    break;
+                }
+
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    return false;
+                }
+
+                await Task.Delay(100);
+            }
+
+            if (!uploadAllowed)
+            {
+                logger.AddUserMessage("Permission to upload kernel was denied.");
+                logger.AddUserMessage("If this persists, try cutting power to the IPC, restoring power, waiting ten seconds, and trying again.");
+                return false;
+            }
+
+
+            
+            await this.device.SetTimeout(TimeoutScenario.SendKernel);
+            
+
+            int retryCount1 = 0;
+            for (; retryCount1 < MaxSendAttempts; retryCount1++)
+            {
+                int offset = 0;
+                Message payloadMessage = protocol.CreateBlockMessage(
+                    payload,
+                    offset,
+                    claimedSize,
+                    address,
+                    offset == 0 ? BlockCopyType.Execute : BlockCopyType.Copy);
+                await notifier.Notify();
+                
+                Response<bool> uploadResponse = await WritePayload(payloadMessage, cancellationToken);
+                if (uploadResponse.Status != ResponseStatus.Success)
+                {
+                    logger.AddDebugMessage("Could not upload kernel to IPC");
+                    return false;
+                }
+                
+                
+
+            }
+
+            return true;
+        
+        }
+
+            
+            
     }
+
+    
 }
