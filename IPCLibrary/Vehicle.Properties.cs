@@ -446,7 +446,7 @@ namespace PcmHacking
                 return Response.Create(ResponseStatus.Error, false);
             }
 
-            this.logger.AddUserMessage("Changing Mileage to " + mileage);
+            
 
             uint intmileage = uint.Parse(mileage, System.Globalization.NumberStyles.Integer);
             //byte[] bmileage = Encoding.ASCII.GetBytes(mileage);
@@ -467,7 +467,7 @@ namespace PcmHacking
                 return Response.Create(ResponseStatus.Error, false);
             }
 
-            this.logger.AddUserMessage("Changing Hours to " + hours);
+            
 
             uint inthours = uint.Parse(hours, System.Globalization.NumberStyles.Integer);
             //byte[] bmileage = Encoding.ASCII.GetBytes(mileage);

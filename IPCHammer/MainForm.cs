@@ -1764,6 +1764,8 @@ namespace PcmHacking
         {
             try
             {
+                this.DisableUserInput();
+                
                 Response<uint> osidResponse = await this.Vehicle.QueryOperatingSystemId(CancellationToken.None);
                 if (osidResponse.Status != ResponseStatus.Success)
                 {
@@ -1777,8 +1779,13 @@ namespace PcmHacking
                 DialogBoxes.MileageForm mileageForm = new DialogBoxes.MileageForm();
                 DialogResult dialogResult = mileageForm.ShowDialog();
 
+                String Milesmodified = mileageForm.Mileage.Insert(mileageForm.Mileage.Length - 1, ".");
+                String Hoursmodified = mileageForm.Hours.Insert(mileageForm.Hours.Length - 1, ".");
+
                 if (dialogResult == DialogResult.OK)
                 {
+                    
+                    
                     if (info.Description == "03 GMT800 IPC")
                     {
                         if (mileageForm.Hours.Length > 1)
@@ -1828,6 +1835,8 @@ namespace PcmHacking
                             }
 
 
+
+                            this.AddUserMessage("Changing Hours to " + Hoursmodified);
                             CKernelWriterIpc writer = new CKernelWriterIpc(
                                 this.Vehicle,
                                 new Protocol(),
@@ -1838,28 +1847,34 @@ namespace PcmHacking
                                 mileagekernel,
                                 CancellationToken.None);
 
+                            
+                            this.AddUserMessage("Hours successfully updated to " + Hoursmodified);
+                            MessageBox.Show("Hours updated to " + Hoursmodified + " successfully.", "Good news.", MessageBoxButtons.OK);
+                            this.AddUserMessage("Delaying to allow IPC to reboot.");
                             await Task.Delay(11000);
 
                         }
 
                         if (mileageForm.Mileage.Length > 1)
                         {
+                            this.AddUserMessage("Changing Hours to " + Milesmodified);
                             bool unlocked = await this.Vehicle.UnlockEcu(info.KeyAlgorithm);
                             if (!unlocked)
                             {
                                 this.AddUserMessage("Unable to unlock IPC.");
                                 return;
                             }
-
+                            
                             Response<bool> mileagemodified = await this.Vehicle.UpdateMileage(mileageForm.Mileage.Trim());
                             if (mileagemodified.Value)
                             {
-                                this.AddUserMessage("Mileage successfully updated to " + mileageForm.Mileage);
-                                MessageBox.Show("Mileage updated to " + mileageForm.Mileage + " successfully.", "Good news.", MessageBoxButtons.OK);
+                                
+                                this.AddUserMessage("Mileage successfully updated to " + Milesmodified);
+                                MessageBox.Show("Mileage updated to " + Milesmodified + " successfully.", "Good news.", MessageBoxButtons.OK);
                             }
                             else
                             {
-                                MessageBox.Show("Unable to change the Mileage to " + mileageForm.Mileage + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
+                                MessageBox.Show("Unable to change the Mileage to " + Milesmodified + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
                             }
                         }
 
@@ -1870,8 +1885,11 @@ namespace PcmHacking
 
                     if (info.Description != "03 GMT800 IPC")
                     {
+
+
                         if (mileageForm.Mileage.Length > 1)
                         {
+                            this.AddUserMessage("Changing Hours to " + Milesmodified);
                             bool unlocked = await this.Vehicle.UnlockEcu(info.KeyAlgorithm);
                             if (!unlocked)
                             {
@@ -1882,30 +1900,34 @@ namespace PcmHacking
                             Response<bool> mileagemodified = await this.Vehicle.UpdateMileage(mileageForm.Mileage.Trim());
                             if (mileagemodified.Value)
                             {
-                                 this.AddUserMessage("Mileage successfully updated to " + mileageForm.Mileage);
-                                 MessageBox.Show("Mileage updated to " + mileageForm.Mileage + " successfully.", "Good news.", MessageBoxButtons.OK);
+                                 this.AddUserMessage("Mileage successfully updated to " + Milesmodified);
+                                 MessageBox.Show("Mileage updated to " + Milesmodified + " successfully.", "Good news.", MessageBoxButtons.OK);
                             }
                                 else
                                 {
-                                    MessageBox.Show("Unable to change the Mileage to " + mileageForm.Mileage + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
+                                    MessageBox.Show("Unable to change the Mileage to " + Milesmodified + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
                                 }
                         }
 
                         if (mileageForm.Hours.Length > 1)
                         {
+                            this.AddUserMessage("Changing Hours to " + Hoursmodified);
                             Response<bool> mileagemodified = await this.Vehicle.UpdateHours(mileageForm.Hours.Trim());
                             if (mileagemodified.Value)
                             {
-                                this.AddUserMessage("Hours successfully updated to " + mileageForm.Hours);
-                                MessageBox.Show("Hours updated to " + mileageForm.Hours + " successfully.", "Good news.", MessageBoxButtons.OK);
+                                this.AddUserMessage("Hours successfully updated to " + Hoursmodified);
+                                MessageBox.Show("Hours updated to " + Hoursmodified + " successfully.", "Good news.", MessageBoxButtons.OK);
                             }
                                 else
                                 {
-                                    MessageBox.Show("Unable to change the Hours to " + mileageForm.Hours + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
+                                    MessageBox.Show("Unable to change the Hours to " + Hoursmodified + ". Error: " + mileagemodified.Status, "Bad news.", MessageBoxButtons.OK);
                                 }
                         }
                     }
                 }
+
+                this.EnableUserInput();
+            
             }
             catch (Exception exception)
             {

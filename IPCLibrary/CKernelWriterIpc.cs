@@ -396,15 +396,16 @@ namespace PcmHacking
 
                 // TODO: instead of this hard-coded address, get the base address from the PcmInfo object.
                 if (!await this.vehicle.IPCExecute(kernel, 0x00C000, 0x028E, cancellationToken))
-                    {
-                        logger.AddUserMessage("Failed to upload kernel to IPC");
+                {
+                    logger.AddUserMessage("Failed to upload kernel to IPC");
 
-                        return false;
-                    }
+                    return false;
+                }
 
                     logger.AddUserMessage("Kernel uploaded to IPC succesfully.");
+                    
 
-                return success;
+                    return success;
             }
             catch (Exception exception)
             {
