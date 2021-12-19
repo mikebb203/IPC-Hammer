@@ -36,7 +36,7 @@ namespace PcmHacking
         /// 
         /// If not null, use a number like "004" that matches a release branch.
         /// </summary>
-        private const string AppVersion = "016.3";
+        private const string AppVersion = "016.4";
 
         /// <summary>
         /// We had to move some operations to a background thread for the J2534 code as the DLL functions do not have an awaiter.
@@ -428,6 +428,9 @@ namespace PcmHacking
                     this.AddUserMessage("OS ID query failed: " + osResponse.Status.ToString());
                 }
 
+                
+                PcmInfo info = new PcmInfo(osResponse.Value);
+                
                 var calResponse = await this.Vehicle.QueryCalibrationId();
                 if (calResponse.Status == ResponseStatus.Success)
                 {
@@ -447,6 +450,9 @@ namespace PcmHacking
                 {
                     this.AddUserMessage("Hardware ID query failed: " + hardwareResponse.Status.ToString());
                 }
+
+                this.AddUserMessage(info.Description.ToString());
+                this.AddUserMessage(info.LatestOS.ToString());
 
                 var serialResponse = await this.Vehicle.QuerySerial();
                 if (serialResponse.Status == ResponseStatus.Success)

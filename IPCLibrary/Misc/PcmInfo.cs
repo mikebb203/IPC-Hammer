@@ -25,6 +25,11 @@ namespace PcmHacking
         public string Description { get; private set; }
 
         /// <summary>
+        /// Descriptive text.
+        /// </summary>
+        public string LatestOS { get; private set; }
+
+        /// <summary>
         /// Indicates whether this PCM is supported by the app.
         /// </summary>
         public bool IsSupported { get; private set; }
@@ -73,32 +78,52 @@ namespace PcmHacking
                 */
                 
                 case 15124091: // 2003
+                    this.KeyAlgorithm = 20;
+                    this.Description = "03 GMT800 IPC";
+                    this.LatestOS = "Newest OS. Calibration Only needed";
+                    this.Kernelname = "03kernel.bin";
+                    this.ImageSize = 112 * 1024;
+                    break;
                 case 15182173:
                 case 16001314:
                     this.KeyAlgorithm = 20;
                     this.Description = "03 GMT800 IPC";
+                    this.LatestOS = "Older OS. OS and Calibration needed";
                     this.Kernelname = "03kernel.bin";
                     this.ImageSize = 112 * 1024;
                     break;
 
                 case 15114624: // 2004
+                    this.KeyAlgorithm = 20;
+                    this.Description = "04 GMT800 IPC";
+                    this.LatestOS = "Newest OS. Calibration Only needed";
+                    this.ImageSize = 112 * 1024;
+                    break;
                 case 15104641:
                     this.KeyAlgorithm = 20;
                     this.Description = "04 GMT800 IPC";
+                    this.LatestOS = "Older OS. OS and Calibration needed";
                     this.ImageSize = 112 * 1024;
                     break;
 
                 case 15190861: // 2005 cluster/2003-04 truck
                     this.KeyAlgorithm = 20;
                     this.Description = "05 cluster for 03-04 GMT800 IPC";
+                    this.LatestOS = "Newest OS. Calibration Only needed";
                     this.ImageSize = 112 * 1024;
                     break;
                               
                 case 15107552: // 2005 2006 
                 case 15135638:
+                    this.KeyAlgorithm = 20;
+                    this.Description = "05-06 GMT800 IPC";
+                    this.LatestOS = "Older OS. OS and Calibration needed";
+                    this.ImageSize = 112 * 1024;
+                    break;
                 case 15782454: // 2005 2006
                     this.KeyAlgorithm = 20;
                     this.Description = "05-06 GMT800 IPC";
+                    this.LatestOS = "Newest OS. Calibration Only needed";
                     this.ImageSize = 112 * 1024;
                     break;
                
@@ -106,6 +131,7 @@ namespace PcmHacking
 
                     this.KeyAlgorithm = 20;
                     this.Description = "07 GMT800 IPC";
+                    this.LatestOS = "Newest OS. Calibration Only needed";
                     this.ImageSize = 112 * 1024;
                     break;
 
