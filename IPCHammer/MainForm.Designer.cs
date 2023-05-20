@@ -40,7 +40,6 @@
             this.Checksum_test = new System.Windows.Forms.Button();
             this.Modify_options = new System.Windows.Forms.Button();
             this.adjustStepperCalibration = new System.Windows.Forms.Button();
-            this.exitKernelButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.writeCalibrationButton = new System.Windows.Forms.Button();
             this.write1CalibrationButton = new System.Windows.Forms.Button();
@@ -61,6 +60,8 @@
             this.mileageCorrectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemEnable4xReadWrite = new System.Windows.Forms.ToolStripMenuItem();
+            this.ModifyOptionsTB = new System.Windows.Forms.Button();
+            this.TestIPCTB = new System.Windows.Forms.Button();
             this.interfaceBox.SuspendLayout();
             this.operationsBox.SuspendLayout();
             this.tabs.SuspendLayout();
@@ -119,12 +120,13 @@
             // 
             this.operationsBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.operationsBox.Controls.Add(this.TestIPCTB);
+            this.operationsBox.Controls.Add(this.ModifyOptionsTB);
             this.operationsBox.Controls.Add(this.testipc99);
             this.operationsBox.Controls.Add(this.Modify_options99);
             this.operationsBox.Controls.Add(this.Checksum_test);
             this.operationsBox.Controls.Add(this.Modify_options);
             this.operationsBox.Controls.Add(this.adjustStepperCalibration);
-            this.operationsBox.Controls.Add(this.exitKernelButton);
             this.operationsBox.Controls.Add(this.cancelButton);
             this.operationsBox.Controls.Add(this.writeCalibrationButton);
             this.operationsBox.Controls.Add(this.write1CalibrationButton);
@@ -161,7 +163,7 @@
             // 
             // Checksum_test
             // 
-            this.Checksum_test.Location = new System.Drawing.Point(4, 283);
+            this.Checksum_test.Location = new System.Drawing.Point(4, 317);
             this.Checksum_test.Margin = new System.Windows.Forms.Padding(2);
             this.Checksum_test.Name = "Checksum_test";
             this.Checksum_test.Size = new System.Drawing.Size(216, 25);
@@ -191,18 +193,6 @@
             this.adjustStepperCalibration.Text = "Adjust Stepper Calibration 03-07";
             this.adjustStepperCalibration.UseVisualStyleBackColor = true;
             this.adjustStepperCalibration.Click += new System.EventHandler(this.adjustStepperCalibration_Click);
-            // 
-            // exitKernelButton
-            // 
-            this.exitKernelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.exitKernelButton.Location = new System.Drawing.Point(4, 312);
-            this.exitKernelButton.Margin = new System.Windows.Forms.Padding(2);
-            this.exitKernelButton.Name = "exitKernelButton";
-            this.exitKernelButton.Size = new System.Drawing.Size(216, 25);
-            this.exitKernelButton.TabIndex = 9;
-            this.exitKernelButton.Text = "&Halt Kernel";
-            this.exitKernelButton.UseVisualStyleBackColor = true;
-            this.exitKernelButton.Click += new System.EventHandler(this.testKernelButton_Click);
             // 
             // cancelButton
             // 
@@ -417,6 +407,26 @@
             this.menuItemEnable4xReadWrite.Text = "Enable &4x Communication";
             this.menuItemEnable4xReadWrite.Click += new System.EventHandler(this.enable4xReadWrite_Click);
             // 
+            // ModifyOptionsTB
+            // 
+            this.ModifyOptionsTB.Location = new System.Drawing.Point(6, 281);
+            this.ModifyOptionsTB.Name = "ModifyOptionsTB";
+            this.ModifyOptionsTB.Size = new System.Drawing.Size(214, 23);
+            this.ModifyOptionsTB.TabIndex = 14;
+            this.ModifyOptionsTB.Text = "Modify Options TB/Envoy";
+            this.ModifyOptionsTB.UseVisualStyleBackColor = true;
+            this.ModifyOptionsTB.Click += new System.EventHandler(this.ModifyOptionsTB_Click);
+            // 
+            // TestIPCTB
+            // 
+            this.TestIPCTB.Location = new System.Drawing.Point(6, 252);
+            this.TestIPCTB.Name = "TestIPCTB";
+            this.TestIPCTB.Size = new System.Drawing.Size(213, 23);
+            this.TestIPCTB.TabIndex = 15;
+            this.TestIPCTB.Text = "Test IPC TB/Envoy ";
+            this.TestIPCTB.UseVisualStyleBackColor = true;
+            this.TestIPCTB.Click += new System.EventHandler(this.TestIPCTB_Click);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.readPropertiesButton;
@@ -469,7 +479,6 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.TabPage helpTab;
         private System.Windows.Forms.WebBrowser helpWebBrowser;
-        private System.Windows.Forms.Button exitKernelButton;
         private System.Windows.Forms.TabPage creditsTab;
         private System.Windows.Forms.WebBrowser creditsWebBrowser;
         private System.Windows.Forms.MenuStrip menuStripMain;
@@ -483,6 +492,8 @@
         private System.Windows.Forms.ToolStripMenuItem mileageCorrectionToolStripMenuItem;
         private System.Windows.Forms.Button Modify_options99;
         private System.Windows.Forms.Button testipc99;
+        private System.Windows.Forms.Button TestIPCTB;
+        private System.Windows.Forms.Button ModifyOptionsTB;
     }
 }
 

@@ -262,7 +262,7 @@ namespace PcmHacking
 
                 if (this.protocol.IsUnlocked(seedResponse.GetBytes()))
                 {
-                    this.logger.AddUserMessage("PCM is already unlocked");
+                    this.logger.AddUserMessage("IPC is already unlocked");
                     return true;
                 }
 
@@ -286,7 +286,7 @@ namespace PcmHacking
 
             if (seedValue == 0x0000)
             {
-                this.logger.AddUserMessage("PCM Unlock not required");
+                this.logger.AddUserMessage("IPC Unlock not required");
                 return true;
             }
 

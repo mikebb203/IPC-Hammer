@@ -184,7 +184,7 @@ namespace PcmHacking
             {
                 if (data != null && data.Length > 0)
                 {
-                    for (int index = 0; index < data.Length; index++)
+                    for (int index = 1; index < data.Length; index++)
                     {
                         const int headBytes = 4;
                         int actualLength = actual.Length;
@@ -240,7 +240,7 @@ namespace PcmHacking
                 return false;
             }
 
-            for (int index = 0; index < expected.Length; index++)
+            for (int index = 1; index < expected.Length; index++)
             {
                 if (actual[index] != expected[index])
                 {
@@ -272,7 +272,7 @@ namespace PcmHacking
             
             if (actual[5] == 0x86)
             {
-                for (int index = 0; index < expected1.Length; index++)
+                for (int index = 1; index < expected1.Length; index++)
                 {
                     if (actual[index] != expected1[index])
                     {
@@ -287,7 +287,7 @@ namespace PcmHacking
 
             if (actual[5] == 0x73)
             {
-                for (int index = 0; index < expected.Length; index++)
+                for (int index = 1; index < expected.Length; index++)
                 {
                     if (actual[index] != expected[index])
                     {

@@ -81,7 +81,9 @@ namespace PcmHacking
                     stID.Contains("STN1150") || // MX version 1
                     stID.Contains("STN1151") || // MX version 2
                     stID.Contains("STN1155") || // LX
-                    stID.Contains("STN2255"))   // MX+
+                    stID.Contains("STN2255") || // MX+
+                    stID.Contains("STN2256") || // MX+ version 2
+                    stID.Contains("STN2231"))   // EX
                 {
                     // 2048 works, but doesn't write measurably faster.
                     this.MaxSendSize = 1024 + 12;
@@ -90,8 +92,7 @@ namespace PcmHacking
                 else
                 {
                     this.Logger.AddUserMessage("This ScanTool device is not supported.");
-                    this.Logger.AddUserMessage("Please check pcmhammer.org to ensure that you have the latest release.");
-                    this.Logger.AddUserMessage("We're going to default to very small packet sizes, which will make everything slow, but at least it'll probably work.");
+                    this.Logger.AddUserMessage("We're going to default to very small packet sizes, which will make programming fail.");
                     this.MaxSendSize = 128 + 12;
                     this.MaxReceiveSize = 128 + 12;
                 }
@@ -128,7 +129,7 @@ namespace PcmHacking
                         break;
 
                     case TimeoutScenario.ReadProperty:
-                        milliseconds = 25;
+                        milliseconds = 50; /// Doubled from 25 to test FB error
                         break;
 
                     case TimeoutScenario.ReadCrc:

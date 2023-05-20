@@ -108,6 +108,11 @@ namespace PcmHacking
                     this.BootSector = 12245742;
                     break;
 
+                case 15135651:
+                    this.OsID = "15135638.bin";
+                    this.BootSector = 12245742;
+                    break;
+
                 ///2005 cluster 2003-2004 truck
                 case 15787053:
                 case 15787054:
@@ -146,6 +151,31 @@ namespace PcmHacking
                 case 15105983:
                 case 15105986:
                     this.OsID = "15782454.bin";
+                    this.BootSector = 28011118;
+                    break;
+
+                ///2007 cluster
+
+                case 15287333:
+                case 15287334:
+                case 15287335:
+                case 15287336:
+                case 15287337:
+                case 15287338:
+                case 15287339:
+                case 15287340:
+                case 15287341:
+                case 15287342:
+                case 15287343:
+                case 15287345:
+                case 15287346:
+                case 15287347:
+                case 15287348:
+                case 15287349:
+                case 15287350:
+                case 15287352:
+                case 15287353:
+                    this.OsID = "15287329.bin";
                     this.BootSector = 28011118;
                     break;
 

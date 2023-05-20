@@ -213,7 +213,7 @@ namespace PcmHacking
                 OBDError = J2534Port.Functions.PassThruReadMsgs((int)ChannelID, rxMsgs, ref NumMessages, ReadTimeout);
                 if (OBDError != J2534Err.STATUS_NOERROR)
                 {
-                    this.Logger.AddDebugMessage("ReadMsgs OBDError: " + OBDError);
+                    this.Logger.AddDebugMessage("ReadMsgs OBDError:1 " + OBDError);
                     return Task.FromResult(0);
                 }
 
@@ -234,7 +234,7 @@ namespace PcmHacking
 
             if (OBDError != J2534Err.STATUS_NOERROR || sw.ElapsedMilliseconds > (long)ReadTimeout)
             {
-                this.Logger.AddDebugMessage("ReadMsgs OBDError: " + OBDError);
+                this.Logger.AddDebugMessage("ReadMsgs OBDError:2 " + OBDError);
                 return Task.FromResult(0);
             }
 

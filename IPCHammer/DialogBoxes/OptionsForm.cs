@@ -116,7 +116,25 @@ namespace PcmHacking.DialogBoxes
                     label15.Text = "";
                     label16.Text = "";
                     break;
-                
+
+                case 0209:
+                    label1.Text = "";
+                    label2.Text = "";
+                    label3.Text = "";
+                    label4.Text = "";
+                    label5.Text = "";
+                    label6.Text = "";
+                    label7.Text = "";
+                    label8.Text = "";
+                    label9.Text = "";
+                    label10.Text = "";
+                    label11.Text = "checked KM unchecked miles";
+                    label12.Text = "checked DIC unchecked NonDIC";
+                    label13.Text = "";
+                    label14.Text = "";
+                    label15.Text = "";
+                    label16.Text = "06+ checked = 140MPH/8k tach";
+                    break;
             }
             
         }

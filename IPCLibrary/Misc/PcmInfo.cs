@@ -140,7 +140,10 @@ namespace PcmHacking
                     this.Description = "99-02 GMT800 IPC";
                     break;
 
-
+                case 0209:
+                    this.KeyAlgorithm = 20;
+                    this.Description = "Trailblazer/Envoy/Bravada/Rainier/9-7x/Ascender";
+                    break;
 
                 default:
                     this.IsSupported = false; // Not sure what the default should be...

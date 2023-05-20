@@ -45,6 +45,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.prompt = new System.Windows.Forms.Label();
+            this.gmt8000307 = new System.Windows.Forms.CheckBox();
+            this.gmt8009902 = new System.Windows.Forms.CheckBox();
+            this.tb0209 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -202,11 +205,47 @@
             this.prompt.Size = new System.Drawing.Size(0, 13);
             this.prompt.TabIndex = 0;
             // 
+            // gmt8000307
+            // 
+            this.gmt8000307.AutoSize = true;
+            this.gmt8000307.Location = new System.Drawing.Point(30, 184);
+            this.gmt8000307.Name = "gmt8000307";
+            this.gmt8000307.Size = new System.Drawing.Size(98, 17);
+            this.gmt8000307.TabIndex = 19;
+            this.gmt8000307.Text = "03-07 GMT800";
+            this.gmt8000307.UseVisualStyleBackColor = true;
+            this.gmt8000307.CheckedChanged += new System.EventHandler(this.gmt8000307_CheckedChanged);
+            // 
+            // gmt8009902
+            // 
+            this.gmt8009902.AutoSize = true;
+            this.gmt8009902.Location = new System.Drawing.Point(30, 219);
+            this.gmt8009902.Name = "gmt8009902";
+            this.gmt8009902.Size = new System.Drawing.Size(98, 17);
+            this.gmt8009902.TabIndex = 20;
+            this.gmt8009902.Text = "99-02 GMT800";
+            this.gmt8009902.UseVisualStyleBackColor = true;
+            this.gmt8009902.CheckedChanged += new System.EventHandler(this.gmt8009902_CheckedChanged);
+            // 
+            // tb0209
+            // 
+            this.tb0209.AutoSize = true;
+            this.tb0209.Location = new System.Drawing.Point(30, 254);
+            this.tb0209.Name = "tb0209";
+            this.tb0209.Size = new System.Drawing.Size(139, 17);
+            this.tb0209.TabIndex = 21;
+            this.tb0209.Text = "02-09 Trailblazer/Envoy";
+            this.tb0209.UseVisualStyleBackColor = true;
+            this.tb0209.CheckedChanged += new System.EventHandler(this.tb0209_CheckedChanged);
+            // 
             // MileageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(408, 380);
+            this.Controls.Add(this.tb0209);
+            this.Controls.Add(this.gmt8009902);
+            this.Controls.Add(this.gmt8000307);
             this.Controls.Add(this.prompt);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
@@ -253,5 +292,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label prompt;
+        private System.Windows.Forms.CheckBox gmt8000307;
+        private System.Windows.Forms.CheckBox gmt8009902;
+        private System.Windows.Forms.CheckBox tb0209;
     }
 }

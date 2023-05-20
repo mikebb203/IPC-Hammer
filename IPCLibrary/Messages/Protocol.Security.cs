@@ -85,19 +85,19 @@ namespace PcmHacking
                     return Response.Create(ResponseStatus.Success, true);
 
                 case Security.Denied:
-                    errorMessage = $"The PCM refused to unlock";
+                    errorMessage = $"The IPC refused to unlock";
                     return Response.Create(ResponseStatus.Error, false);
 
                 case Security.Invalid:
-                    errorMessage = $"The PCM didn't accept the unlock key value";
+                    errorMessage = $"The IPC didn't accept the unlock key value";
                     return Response.Create(ResponseStatus.Error, false);
 
                 case Security.TooMany:
-                    errorMessage = $"The PCM did not accept the key - too many attempts";
+                    errorMessage = $"The IPC did not accept the key - too many attempts";
                     return Response.Create(ResponseStatus.Error, false);
 
                 case Security.Delay:
-                    errorMessage = $"The PCM is enforcing timeout lock";
+                    errorMessage = $"The IPC is enforcing timeout lock";
                     return Response.Create(ResponseStatus.Timeout, false);
                     
                 default:

@@ -692,7 +692,7 @@ namespace PcmHacking
             int retryCount = 0;
             for (; retryCount < MaxSendAttempts; retryCount++)
             {
-                await this.notifier.Notify();
+                ///await this.notifier.Notify();
 
                 if (cancellationToken.IsCancellationRequested)
                 {
@@ -730,7 +730,7 @@ namespace PcmHacking
         /// <summary>
         /// Load the executable payload on the PCM at the supplied address, and execute it.
         /// </summary>
-        public async Task<bool> IPCExecute(byte[] payload, int address, int claimedSize, CancellationToken cancellationToken)
+        public async Task<bool> IPCExecute(byte[] payload, int address, int claimedSize, uint model, CancellationToken cancellationToken)
         {
            
             bool uploadAllowed = false;
@@ -738,11 +738,28 @@ namespace PcmHacking
             {
                 logger.AddUserMessage("Requesting permission to upload kernel.");
                 await this.SetDeviceTimeout(TimeoutScenario.ReadProperty);
-                Message request = protocol.CreateUploadRequestnoaddress();
-                if (!await TrySendMessage(request, "upload request"))
+                switch (model)
                 {
-                    return false;
-                }
+
+                    case 0307:
+                        Message request = protocol.CreateUploadRequestnoaddress();
+                        if (!await TrySendMessage(request, "upload request"))
+                        {
+                            return false;
+                        }
+                        break;
+                    case 9902:
+                        Message request1 = protocol.CreateUploadRequest(address,claimedSize);
+                        if (!await TrySendMessage(request1, "upload request"))
+                        {
+                            return false;
+                        }
+                        break;
+                    default:
+                        break;
+                }   
+                
+                
 
                 if (await this.WaitForSuccess(this.protocol.ParseUploadPermissionResponse, cancellationToken))
                 {
@@ -781,7 +798,7 @@ namespace PcmHacking
                     claimedSize,
                     address,
                     offset == 0 ? BlockCopyType.Execute : BlockCopyType.Copy);
-                await notifier.Notify();
+                
                 
                 Response<bool> uploadResponse = await WritePayload(payloadMessage, cancellationToken);
                 if (uploadResponse.Status != ResponseStatus.Success)

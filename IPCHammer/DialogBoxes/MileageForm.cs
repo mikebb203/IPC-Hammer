@@ -22,6 +22,7 @@ namespace PcmHacking.DialogBoxes
         /// </summary>
         public string Mileage { get; set; }
         public string Hours { get; set; }
+        public uint Model { get; set; }
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -43,7 +44,7 @@ namespace PcmHacking.DialogBoxes
             this.mileagetenthsBox_TextChanged(null, null);
             this.hoursBox_TextChanged(null, null);
             this.hourstenthsBox_TextChanged(null, null);
-        
+            this.gmt8000307.Checked = true;
         }
 
         /// <summary>
@@ -197,6 +198,41 @@ namespace PcmHacking.DialogBoxes
             return true;
         }
 
-       
+        private void gmt8000307_CheckedChanged(object sender, EventArgs e)
+        {
+            if (gmt8000307.Checked == true)
+            {
+                this.Model = 0307;
+                this.gmt8009902.Checked = false;
+                this.tb0209.Checked = false;
+                this.hoursBox.Enabled = true;
+                this.hourstenthsBox.Enabled = true;
+            }
+        }
+
+        private void gmt8009902_CheckedChanged(object sender, EventArgs e)
+        {
+            if (gmt8009902.Checked == true)
+            {
+                this.Model = 9902;
+                this.gmt8000307.Checked = false;
+                this.tb0209.Checked = false;
+                this.hoursBox.Enabled = true;
+                this.hourstenthsBox.Enabled = true;
+            }
+        }
+
+        private void tb0209_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tb0209.Checked == true)
+            {
+                this.Model = 0209;
+                this.gmt8000307.Checked = false;
+                this.gmt8009902.Checked = false;
+                this.hoursBox.Enabled = false;
+                this.hourstenthsBox.Enabled = false;
+            }
+
+        }
     }
 }

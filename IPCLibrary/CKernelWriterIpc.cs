@@ -372,7 +372,7 @@ namespace PcmHacking
         }
 
         public async Task<bool> WriteKernel(
-            byte[] kernel,
+            byte[] kernel,int address,uint model,
             CancellationToken cancellationToken)
         {
             bool success = false;
@@ -383,19 +383,21 @@ namespace PcmHacking
                 await this.vehicle.ForceSendToolPresentNotification();
                 this.vehicle.ClearDeviceMessageQueue();
 
-                int address1 = 0x020000;
-                int claimedSize1 = 0x000002;
-                if (!await this.vehicle.PCMStartProgram(address1, claimedSize1, cancellationToken))
+                if (model == 0307)
                 {
-                    logger.AddUserMessage("Start Program to IPC denied");
+                    int address1 = 0x020000;
+                    int claimedSize1 = 0x000002;
+                    if (!await this.vehicle.PCMStartProgram(address1, claimedSize1, cancellationToken))
+                    {
+                        logger.AddUserMessage("Start Program to IPC denied");
 
-                    return false;
+                        return false;
+                    }
+
+                    logger.AddUserMessage("Start Program to IPC allowed.");
                 }
-
-                logger.AddUserMessage("Start Program to IPC allowed.");
-
                 // TODO: instead of this hard-coded address, get the base address from the PcmInfo object.
-                if (!await this.vehicle.IPCExecute(kernel, 0x00C000, 0x028E, cancellationToken))
+                if (!await this.vehicle.IPCExecute(kernel, address, kernel.Length, model, cancellationToken))
                 {
                     logger.AddUserMessage("Failed to upload kernel to IPC");
 
@@ -405,7 +407,7 @@ namespace PcmHacking
                     logger.AddUserMessage("Kernel uploaded to IPC succesfully.");
                     
 
-                    return success;
+                    return true;
             }
             catch (Exception exception)
             {
@@ -415,7 +417,7 @@ namespace PcmHacking
                     return false;
                 }
 
-                return success;
+                return true;
             }
         }
     }
