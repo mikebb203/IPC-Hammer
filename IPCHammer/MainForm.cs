@@ -36,7 +36,7 @@ namespace PcmHacking
         /// 
         /// If not null, use a number like "004" that matches a release branch.
         /// </summary>
-        private const string AppVersion = "016.7";
+        private const string AppVersion = "016.8";
 
         /// <summary>
         /// We had to move some operations to a background thread for the J2534 code as the DLL functions do not have an awaiter.
@@ -410,6 +410,8 @@ namespace PcmHacking
             try
             {
                 this.DisableUserInput();
+                await this.Vehicle.SuppressChatter();
+                this.Vehicle.ClearDeviceMessageQueue();
 
                 var vinResponse = await this.Vehicle.QueryVin();
                 if (vinResponse.Status != ResponseStatus.Success)
