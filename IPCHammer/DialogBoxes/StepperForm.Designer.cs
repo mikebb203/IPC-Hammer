@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.speedometerBox = new System.Windows.Forms.TextBox();
+            this.speedometerlowerBox = new System.Windows.Forms.TextBox();
             this.okButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -37,49 +37,45 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.tachometerBox = new System.Windows.Forms.TextBox();
-            this.oilBox = new System.Windows.Forms.TextBox();
-            this.voltBox = new System.Windows.Forms.TextBox();
-            this.fuelBox = new System.Windows.Forms.TextBox();
-            this.coolantBox = new System.Windows.Forms.TextBox();
-            this.transmissionBox = new System.Windows.Forms.TextBox();
-            this.speedometerBar = new System.Windows.Forms.TrackBar();
-            this.tachBar = new System.Windows.Forms.TrackBar();
-            this.oilBar = new System.Windows.Forms.TrackBar();
-            this.voltBar = new System.Windows.Forms.TrackBar();
-            this.fuelBar = new System.Windows.Forms.TrackBar();
-            this.coolantBar = new System.Windows.Forms.TrackBar();
-            this.transBar = new System.Windows.Forms.TrackBar();
+            this.tachometerlowerBox = new System.Windows.Forms.TextBox();
+            this.oillowerBox = new System.Windows.Forms.TextBox();
+            this.voltlowerBox = new System.Windows.Forms.TextBox();
+            this.fuellowerBox = new System.Windows.Forms.TextBox();
+            this.coolantlowerBox = new System.Windows.Forms.TextBox();
+            this.transmissionlowerBox = new System.Windows.Forms.TextBox();
             this.updatecal = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.speedometerBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tachBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.oilBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.voltBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fuelBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.coolantBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.transBar)).BeginInit();
+            this.TestSweep = new System.Windows.Forms.Button();
+            this.speedometerupperBox = new System.Windows.Forms.TextBox();
+            this.tachometerupperBox = new System.Windows.Forms.TextBox();
+            this.oilupperBox = new System.Windows.Forms.TextBox();
+            this.voltupperBox = new System.Windows.Forms.TextBox();
+            this.fuelupperBox = new System.Windows.Forms.TextBox();
+            this.coolantupperBox = new System.Windows.Forms.TextBox();
+            this.transmissionupperBox = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 13);
+            this.label1.Location = new System.Drawing.Point(9, 33);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Speedometer:";
             // 
-            // speedometerBox
+            // speedometerlowerBox
             // 
-            this.speedometerBox.Location = new System.Drawing.Point(86, 11);
-            this.speedometerBox.Margin = new System.Windows.Forms.Padding(2);
-            this.speedometerBox.MaxLength = 6;
-            this.speedometerBox.Name = "speedometerBox";
-            this.speedometerBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.speedometerBox.Size = new System.Drawing.Size(81, 20);
-            this.speedometerBox.TabIndex = 1;
-            this.speedometerBox.TextChanged += new System.EventHandler(this.speedometerBox_TextChanged);
+            this.speedometerlowerBox.Location = new System.Drawing.Point(86, 31);
+            this.speedometerlowerBox.Margin = new System.Windows.Forms.Padding(2);
+            this.speedometerlowerBox.MaxLength = 3;
+            this.speedometerlowerBox.Name = "speedometerlowerBox";
+            this.speedometerlowerBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.speedometerlowerBox.Size = new System.Drawing.Size(81, 20);
+            this.speedometerlowerBox.TabIndex = 1;
+            this.speedometerlowerBox.TextChanged += new System.EventHandler(this.speedometerlowerBox_TextChanged);
             // 
             // okButton
             // 
@@ -96,7 +92,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 63);
+            this.label2.Location = new System.Drawing.Point(9, 65);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 13);
@@ -106,7 +102,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 113);
+            this.label3.Location = new System.Drawing.Point(9, 97);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 13);
@@ -116,7 +112,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 163);
+            this.label4.Location = new System.Drawing.Point(9, 129);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(28, 13);
@@ -126,7 +122,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 213);
+            this.label5.Location = new System.Drawing.Point(9, 161);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(59, 13);
@@ -136,7 +132,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(11, 263);
+            this.label6.Location = new System.Drawing.Point(11, 193);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(76, 13);
@@ -146,135 +142,72 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 313);
+            this.label7.Location = new System.Drawing.Point(11, 225);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 13);
             this.label7.TabIndex = 10;
             this.label7.Text = "Trans Temp:";
             // 
-            // tachometerBox
+            // tachometerlowerBox
             // 
-            this.tachometerBox.Location = new System.Drawing.Point(86, 63);
-            this.tachometerBox.Margin = new System.Windows.Forms.Padding(2);
-            this.tachometerBox.MaxLength = 6;
-            this.tachometerBox.Name = "tachometerBox";
-            this.tachometerBox.Size = new System.Drawing.Size(81, 20);
-            this.tachometerBox.TabIndex = 11;
-            this.tachometerBox.TextChanged += new System.EventHandler(this.tachometerBox_TextChanged);
+            this.tachometerlowerBox.Location = new System.Drawing.Point(86, 63);
+            this.tachometerlowerBox.Margin = new System.Windows.Forms.Padding(2);
+            this.tachometerlowerBox.MaxLength = 3;
+            this.tachometerlowerBox.Name = "tachometerlowerBox";
+            this.tachometerlowerBox.Size = new System.Drawing.Size(81, 20);
+            this.tachometerlowerBox.TabIndex = 11;
+            this.tachometerlowerBox.TextChanged += new System.EventHandler(this.tachometerlowerBox_TextChanged);
             // 
-            // oilBox
+            // oillowerBox
             // 
-            this.oilBox.Location = new System.Drawing.Point(86, 113);
-            this.oilBox.Margin = new System.Windows.Forms.Padding(2);
-            this.oilBox.MaxLength = 6;
-            this.oilBox.Name = "oilBox";
-            this.oilBox.Size = new System.Drawing.Size(81, 20);
-            this.oilBox.TabIndex = 12;
-            this.oilBox.TextChanged += new System.EventHandler(this.oilBox_TextChanged);
+            this.oillowerBox.Location = new System.Drawing.Point(86, 95);
+            this.oillowerBox.Margin = new System.Windows.Forms.Padding(2);
+            this.oillowerBox.MaxLength = 2;
+            this.oillowerBox.Name = "oillowerBox";
+            this.oillowerBox.Size = new System.Drawing.Size(81, 20);
+            this.oillowerBox.TabIndex = 12;
+            this.oillowerBox.TextChanged += new System.EventHandler(this.oillowerBox_TextChanged);
             // 
-            // voltBox
+            // voltlowerBox
             // 
-            this.voltBox.Location = new System.Drawing.Point(86, 163);
-            this.voltBox.Margin = new System.Windows.Forms.Padding(2);
-            this.voltBox.MaxLength = 6;
-            this.voltBox.Name = "voltBox";
-            this.voltBox.Size = new System.Drawing.Size(81, 20);
-            this.voltBox.TabIndex = 13;
-            this.voltBox.TextChanged += new System.EventHandler(this.voltBox_TextChanged);
+            this.voltlowerBox.Location = new System.Drawing.Point(86, 127);
+            this.voltlowerBox.Margin = new System.Windows.Forms.Padding(2);
+            this.voltlowerBox.MaxLength = 2;
+            this.voltlowerBox.Name = "voltlowerBox";
+            this.voltlowerBox.Size = new System.Drawing.Size(81, 20);
+            this.voltlowerBox.TabIndex = 13;
+            this.voltlowerBox.TextChanged += new System.EventHandler(this.voltlowerBox_TextChanged);
             // 
-            // fuelBox
+            // fuellowerBox
             // 
-            this.fuelBox.Location = new System.Drawing.Point(86, 213);
-            this.fuelBox.Margin = new System.Windows.Forms.Padding(2);
-            this.fuelBox.MaxLength = 6;
-            this.fuelBox.Name = "fuelBox";
-            this.fuelBox.Size = new System.Drawing.Size(81, 20);
-            this.fuelBox.TabIndex = 14;
-            this.fuelBox.TextChanged += new System.EventHandler(this.fuelBox_TextChanged);
+            this.fuellowerBox.Location = new System.Drawing.Point(86, 159);
+            this.fuellowerBox.Margin = new System.Windows.Forms.Padding(2);
+            this.fuellowerBox.MaxLength = 2;
+            this.fuellowerBox.Name = "fuellowerBox";
+            this.fuellowerBox.Size = new System.Drawing.Size(81, 20);
+            this.fuellowerBox.TabIndex = 14;
+            this.fuellowerBox.TextChanged += new System.EventHandler(this.fuellowerBox_TextChanged);
             // 
-            // coolantBox
+            // coolantlowerBox
             // 
-            this.coolantBox.Location = new System.Drawing.Point(86, 263);
-            this.coolantBox.Margin = new System.Windows.Forms.Padding(2);
-            this.coolantBox.MaxLength = 6;
-            this.coolantBox.Name = "coolantBox";
-            this.coolantBox.Size = new System.Drawing.Size(81, 20);
-            this.coolantBox.TabIndex = 15;
-            this.coolantBox.TextChanged += new System.EventHandler(this.coolantBox_TextChanged);
+            this.coolantlowerBox.Location = new System.Drawing.Point(86, 191);
+            this.coolantlowerBox.Margin = new System.Windows.Forms.Padding(2);
+            this.coolantlowerBox.MaxLength = 2;
+            this.coolantlowerBox.Name = "coolantlowerBox";
+            this.coolantlowerBox.Size = new System.Drawing.Size(81, 20);
+            this.coolantlowerBox.TabIndex = 15;
+            this.coolantlowerBox.TextChanged += new System.EventHandler(this.coolantlowerBox_TextChanged);
             // 
-            // transmissionBox
+            // transmissionlowerBox
             // 
-            this.transmissionBox.Location = new System.Drawing.Point(86, 313);
-            this.transmissionBox.Margin = new System.Windows.Forms.Padding(2);
-            this.transmissionBox.MaxLength = 6;
-            this.transmissionBox.Name = "transmissionBox";
-            this.transmissionBox.Size = new System.Drawing.Size(81, 20);
-            this.transmissionBox.TabIndex = 16;
-            this.transmissionBox.TextChanged += new System.EventHandler(this.transmissionBox_TextChanged);
-            // 
-            // speedometerBar
-            // 
-            this.speedometerBar.Location = new System.Drawing.Point(186, 11);
-            this.speedometerBar.Maximum = 16777215;
-            this.speedometerBar.Name = "speedometerBar";
-            this.speedometerBar.Size = new System.Drawing.Size(333, 45);
-            this.speedometerBar.TabIndex = 17;
-            this.speedometerBar.Scroll += new System.EventHandler(this.speedometer_Scroll);
-            // 
-            // tachBar
-            // 
-            this.tachBar.Location = new System.Drawing.Point(186, 63);
-            this.tachBar.Maximum = 16777215;
-            this.tachBar.Name = "tachBar";
-            this.tachBar.Size = new System.Drawing.Size(333, 45);
-            this.tachBar.TabIndex = 18;
-            this.tachBar.Scroll += new System.EventHandler(this.tachBar_Scroll);
-            // 
-            // oilBar
-            // 
-            this.oilBar.Location = new System.Drawing.Point(186, 113);
-            this.oilBar.Maximum = 65535;
-            this.oilBar.Name = "oilBar";
-            this.oilBar.Size = new System.Drawing.Size(333, 45);
-            this.oilBar.TabIndex = 19;
-            this.oilBar.Scroll += new System.EventHandler(this.oilBar_Scroll);
-            // 
-            // voltBar
-            // 
-            this.voltBar.Location = new System.Drawing.Point(186, 163);
-            this.voltBar.Maximum = 65535;
-            this.voltBar.Name = "voltBar";
-            this.voltBar.Size = new System.Drawing.Size(333, 45);
-            this.voltBar.TabIndex = 20;
-            this.voltBar.Scroll += new System.EventHandler(this.voltBar_Scroll);
-            // 
-            // fuelBar
-            // 
-            this.fuelBar.Location = new System.Drawing.Point(186, 213);
-            this.fuelBar.Maximum = 65535;
-            this.fuelBar.Name = "fuelBar";
-            this.fuelBar.Size = new System.Drawing.Size(333, 45);
-            this.fuelBar.TabIndex = 21;
-            this.fuelBar.Scroll += new System.EventHandler(this.fuelBar_Scroll);
-            // 
-            // coolantBar
-            // 
-            this.coolantBar.Location = new System.Drawing.Point(186, 263);
-            this.coolantBar.Maximum = 65535;
-            this.coolantBar.Name = "coolantBar";
-            this.coolantBar.Size = new System.Drawing.Size(333, 45);
-            this.coolantBar.TabIndex = 22;
-            this.coolantBar.Scroll += new System.EventHandler(this.coolantBar_Scroll);
-            // 
-            // transBar
-            // 
-            this.transBar.Location = new System.Drawing.Point(186, 313);
-            this.transBar.Maximum = 65535;
-            this.transBar.Name = "transBar";
-            this.transBar.Size = new System.Drawing.Size(333, 45);
-            this.transBar.TabIndex = 23;
-            this.transBar.Scroll += new System.EventHandler(this.transBar_Scroll);
+            this.transmissionlowerBox.Location = new System.Drawing.Point(86, 223);
+            this.transmissionlowerBox.Margin = new System.Windows.Forms.Padding(2);
+            this.transmissionlowerBox.MaxLength = 2;
+            this.transmissionlowerBox.Name = "transmissionlowerBox";
+            this.transmissionlowerBox.Size = new System.Drawing.Size(81, 20);
+            this.transmissionlowerBox.TabIndex = 16;
+            this.transmissionlowerBox.TextChanged += new System.EventHandler(this.transmissionlowerBox_TextChanged);
             // 
             // updatecal
             // 
@@ -288,25 +221,133 @@
             this.updatecal.UseVisualStyleBackColor = true;
             this.updatecal.Click += new System.EventHandler(this.updatecal_Click);
             // 
+            // TestSweep
+            // 
+            this.TestSweep.Location = new System.Drawing.Point(152, 368);
+            this.TestSweep.Name = "TestSweep";
+            this.TestSweep.Size = new System.Drawing.Size(116, 24);
+            this.TestSweep.TabIndex = 25;
+            this.TestSweep.Text = "Test Sweep Gauges";
+            this.TestSweep.UseVisualStyleBackColor = true;
+            this.TestSweep.Click += new System.EventHandler(this.TestSweep_Click);
+            // 
+            // speedometerupperBox
+            // 
+            this.speedometerupperBox.Location = new System.Drawing.Point(187, 31);
+            this.speedometerupperBox.Margin = new System.Windows.Forms.Padding(2);
+            this.speedometerupperBox.MaxLength = 3;
+            this.speedometerupperBox.Name = "speedometerupperBox";
+            this.speedometerupperBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.speedometerupperBox.Size = new System.Drawing.Size(81, 20);
+            this.speedometerupperBox.TabIndex = 26;
+            this.speedometerupperBox.TextChanged += new System.EventHandler(this.speedometerupperBox_TextChanged);
+            // 
+            // tachometerupperBox
+            // 
+            this.tachometerupperBox.Location = new System.Drawing.Point(187, 63);
+            this.tachometerupperBox.Margin = new System.Windows.Forms.Padding(2);
+            this.tachometerupperBox.MaxLength = 3;
+            this.tachometerupperBox.Name = "tachometerupperBox";
+            this.tachometerupperBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tachometerupperBox.Size = new System.Drawing.Size(81, 20);
+            this.tachometerupperBox.TabIndex = 27;
+            this.tachometerupperBox.TextChanged += new System.EventHandler(this.tachometerupperBox_TextChanged);
+            // 
+            // oilupperBox
+            // 
+            this.oilupperBox.Location = new System.Drawing.Point(187, 95);
+            this.oilupperBox.Margin = new System.Windows.Forms.Padding(2);
+            this.oilupperBox.MaxLength = 2;
+            this.oilupperBox.Name = "oilupperBox";
+            this.oilupperBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.oilupperBox.Size = new System.Drawing.Size(81, 20);
+            this.oilupperBox.TabIndex = 28;
+            this.oilupperBox.TextChanged += new System.EventHandler(this.oilupperBox_TextChanged);
+            // 
+            // voltupperBox
+            // 
+            this.voltupperBox.Location = new System.Drawing.Point(187, 127);
+            this.voltupperBox.Margin = new System.Windows.Forms.Padding(2);
+            this.voltupperBox.MaxLength = 2;
+            this.voltupperBox.Name = "voltupperBox";
+            this.voltupperBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.voltupperBox.Size = new System.Drawing.Size(81, 20);
+            this.voltupperBox.TabIndex = 29;
+            this.voltupperBox.TextChanged += new System.EventHandler(this.voltupperBox_TextChanged);
+            // 
+            // fuelupperBox
+            // 
+            this.fuelupperBox.Location = new System.Drawing.Point(187, 159);
+            this.fuelupperBox.Margin = new System.Windows.Forms.Padding(2);
+            this.fuelupperBox.MaxLength = 2;
+            this.fuelupperBox.Name = "fuelupperBox";
+            this.fuelupperBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.fuelupperBox.Size = new System.Drawing.Size(81, 20);
+            this.fuelupperBox.TabIndex = 30;
+            this.fuelupperBox.TextChanged += new System.EventHandler(this.fuelupperBox_TextChanged);
+            // 
+            // coolantupperBox
+            // 
+            this.coolantupperBox.Location = new System.Drawing.Point(187, 191);
+            this.coolantupperBox.Margin = new System.Windows.Forms.Padding(2);
+            this.coolantupperBox.MaxLength = 2;
+            this.coolantupperBox.Name = "coolantupperBox";
+            this.coolantupperBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.coolantupperBox.Size = new System.Drawing.Size(81, 20);
+            this.coolantupperBox.TabIndex = 31;
+            this.coolantupperBox.TextChanged += new System.EventHandler(this.coolantupperBox_TextChanged);
+            // 
+            // transmissionupperBox
+            // 
+            this.transmissionupperBox.Location = new System.Drawing.Point(187, 223);
+            this.transmissionupperBox.Margin = new System.Windows.Forms.Padding(2);
+            this.transmissionupperBox.MaxLength = 2;
+            this.transmissionupperBox.Name = "transmissionupperBox";
+            this.transmissionupperBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.transmissionupperBox.Size = new System.Drawing.Size(81, 20);
+            this.transmissionupperBox.TabIndex = 32;
+            this.transmissionupperBox.TextChanged += new System.EventHandler(this.transmissionupperBox_TextChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(86, 13);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(56, 13);
+            this.label8.TabIndex = 33;
+            this.label8.Text = "Lower limit";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(187, 12);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(56, 13);
+            this.label9.TabIndex = 34;
+            this.label9.Text = "Upper limit";
+            // 
             // StepperForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(532, 402);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.transmissionupperBox);
+            this.Controls.Add(this.coolantupperBox);
+            this.Controls.Add(this.fuelupperBox);
+            this.Controls.Add(this.voltupperBox);
+            this.Controls.Add(this.oilupperBox);
+            this.Controls.Add(this.tachometerupperBox);
+            this.Controls.Add(this.speedometerupperBox);
+            this.Controls.Add(this.TestSweep);
             this.Controls.Add(this.updatecal);
-            this.Controls.Add(this.transBar);
-            this.Controls.Add(this.coolantBar);
-            this.Controls.Add(this.fuelBar);
-            this.Controls.Add(this.voltBar);
-            this.Controls.Add(this.oilBar);
-            this.Controls.Add(this.tachBar);
-            this.Controls.Add(this.speedometerBar);
-            this.Controls.Add(this.transmissionBox);
-            this.Controls.Add(this.coolantBox);
-            this.Controls.Add(this.fuelBox);
-            this.Controls.Add(this.voltBox);
-            this.Controls.Add(this.oilBox);
-            this.Controls.Add(this.tachometerBox);
+            this.Controls.Add(this.transmissionlowerBox);
+            this.Controls.Add(this.coolantlowerBox);
+            this.Controls.Add(this.fuellowerBox);
+            this.Controls.Add(this.voltlowerBox);
+            this.Controls.Add(this.oillowerBox);
+            this.Controls.Add(this.tachometerlowerBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -314,20 +355,13 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.okButton);
-            this.Controls.Add(this.speedometerBox);
+            this.Controls.Add(this.speedometerlowerBox);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "StepperForm";
             this.Text = "Adjust Stepper Calibration";
             this.Load += new System.EventHandler(this.StepperForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.speedometerBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tachBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.oilBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.voltBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fuelBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.coolantBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.transBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -336,7 +370,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox speedometerBox;
+        private System.Windows.Forms.TextBox speedometerlowerBox;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -344,19 +378,22 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox tachometerBox;
-        private System.Windows.Forms.TextBox oilBox;
-        private System.Windows.Forms.TextBox voltBox;
-        private System.Windows.Forms.TextBox fuelBox;
-        private System.Windows.Forms.TextBox coolantBox;
-        private System.Windows.Forms.TextBox transmissionBox;
-        private System.Windows.Forms.TrackBar speedometerBar;
-        private System.Windows.Forms.TrackBar tachBar;
-        private System.Windows.Forms.TrackBar oilBar;
-        private System.Windows.Forms.TrackBar voltBar;
-        private System.Windows.Forms.TrackBar fuelBar;
-        private System.Windows.Forms.TrackBar coolantBar;
-        private System.Windows.Forms.TrackBar transBar;
+        private System.Windows.Forms.TextBox tachometerlowerBox;
+        private System.Windows.Forms.TextBox oillowerBox;
+        private System.Windows.Forms.TextBox voltlowerBox;
+        private System.Windows.Forms.TextBox fuellowerBox;
+        private System.Windows.Forms.TextBox coolantlowerBox;
+        private System.Windows.Forms.TextBox transmissionlowerBox;
         private System.Windows.Forms.Button updatecal;
+        private System.Windows.Forms.Button TestSweep;
+        private System.Windows.Forms.TextBox speedometerupperBox;
+        private System.Windows.Forms.TextBox tachometerupperBox;
+        private System.Windows.Forms.TextBox oilupperBox;
+        private System.Windows.Forms.TextBox voltupperBox;
+        private System.Windows.Forms.TextBox fuelupperBox;
+        private System.Windows.Forms.TextBox coolantupperBox;
+        private System.Windows.Forms.TextBox transmissionupperBox;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }

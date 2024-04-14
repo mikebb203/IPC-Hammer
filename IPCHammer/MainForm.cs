@@ -36,7 +36,7 @@ namespace PcmHacking
         /// 
         /// If not null, use a number like "004" that matches a release branch.
         /// </summary>
-        private const string AppVersion = "016.8";
+        private const string AppVersion = "016.9";
 
         /// <summary>
         /// We had to move some operations to a background thread for the J2534 code as the DLL functions do not have an awaiter.
@@ -908,6 +908,7 @@ namespace PcmHacking
             FileValidator validator = new FileValidator(image, this);
             if (!validator.ValidateChecksums())
             {
+                
                 this.AddUserMessage("This file is corrupt. It would render your IPC unusable.");
                 this.EnableUserInput();
                 return;
@@ -1567,6 +1568,35 @@ namespace PcmHacking
                                         
                                         break;
 
+
+                                    ///2007 cluster
+                                    case 15287333:
+                                    case 15287334:
+                                    case 15287335:
+                                    case 15287336:
+                                    case 15287337:
+                                    case 15287338:
+                                    case 15287339:
+                                    case 15287340:
+                                    case 15287341:
+                                    case 15287342:
+                                    case 15287343:
+                                    case 15287345:
+                                    case 15287346:
+                                    case 15287347:
+                                    case 15287348:
+                                    case 15287349:
+                                    case 15287350:
+                                    case 15287352:
+                                    case 15287353:
+                                        if (a7k140mphForm.Tach == true)
+                                        {
+                                            image[0x2BE] = 0xD3;
+                                            image[0x2C0] = 0x60;
+                                            image[0x2C1] = 0x6D;
+                                        }
+
+                                        break;
 
                                 }
 

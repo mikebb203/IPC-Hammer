@@ -83,7 +83,8 @@ namespace PcmHacking
                     stID.Contains("STN1155") || // LX
                     stID.Contains("STN2255") || // MX+
                     stID.Contains("STN2256") || // MX+ version 2
-                    stID.Contains("STN2231"))   // EX
+                    stID.Contains("STN2230") || // EX version 1
+                    stID.Contains("STN2231"))   // EX version 2
                 {
                     // 2048 works, but doesn't write measurably faster.
                     this.MaxSendSize = 1024 + 12;
