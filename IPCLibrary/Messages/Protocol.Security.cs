@@ -112,7 +112,7 @@ namespace PcmHacking
         public bool IsUnlocked(byte[] response)
         {
             ResponseStatus status;
-            byte[] unlocked = { Priority.Physical0, DeviceId.Tool, DeviceId.Pcm, Mode.Seed + Mode.Response, 0x01, 0x37 };
+            byte[] unlocked = { Priority.Physical0, DeviceId.Tool, DeviceId.Pcm, Mode.Seed + Mode.Response, 0x01, 0x34 };
 
             if (TryVerifyInitialBytes(response, unlocked, out status))
             {

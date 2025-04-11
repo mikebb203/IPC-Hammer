@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>PcmHacking</RootNamespace>
     <AssemblyName>IpcHammer</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -26,6 +26,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Jason\AppData\Local\Temp\vsAE7D.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\mikeb\AppData\Local\Temp\vs2718.tmp\Debug\</IntermediateOutputPath>
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -47,7 +48,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Jason\AppData\Local\Temp\vsAE7D.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\mikeb\AppData\Local\Temp\vs2718.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>0411_256px.ico</ApplicationIcon>
@@ -154,6 +155,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
