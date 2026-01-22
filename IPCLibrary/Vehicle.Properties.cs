@@ -588,6 +588,24 @@ namespace PcmHacking
             Message message = this.protocol.CreateSweepGauges99100();
             await this.device.SendMessage(message);
         }
+        //swap stuff
+        public async Task Swapmute()
+        {
+            Message message = this.protocol.SwapMute();
+            await this.device.SendMessage(message);
+        }
+        public async Task Swapmagic()
+        {
+            Message message = this.protocol.SwapMagic();
+            await this.device.SendMessage(message);
+        }
+        public async Task Swapopt(byte cmd, byte b0, byte b1, byte b2, byte b3)
+        {
+            Message message = this.protocol.SwapOPT(cmd,b0,b1,b2,b3);
+            await this.device.SendMessage(message);
+        }
+
+
 
     }
 }

@@ -329,8 +329,29 @@ namespace PcmHacking
         {
             return CreateDevicecontrolrequest(0x18, 0x00, 0x00, 0x02, 0x02, 0x00, 0x00);
         }
-
-
+         //swap box stuff 
+        public Message Create6ByteRequest(byte Block1, byte Block2, byte Block3, byte Block4, byte Block5, byte Block6)
+        {
+            byte[] Bytes = new byte[] { Block1, Block2, Block3, Block4, Block5, Block6 };
+            return new Message(Bytes);
+        }
+        public Message SwapMagic()
+        {
+            return Create6ByteRequest(0x99, 0x01, 0x43, 0x41, 0x4C, 0x31);
+        }
+        public Message SwapSave()
+        {
+            return Create6ByteRequest(0x99, 0x01, 0x43, 0x41, 0x4C, 0x31);
+        }
+        public Message SwapMute()
+        {
+            return Create6ByteRequest(0x6C, 0xFE, 0xF0, 0x28, 0x00, 0xF0);
+        }
+        public Message SwapOPT(byte cmd, byte b0, byte b1, byte b2, byte b3)
+        {
+            return Create6ByteRequest(0x99, cmd, b0, b1, b2, b3);
+        }
+        // end swapbox stuff
         public Message Createmode34request(byte Block1, byte Block2, byte Block3, byte Block4, byte Block5, byte Block6)
         {
             byte[] Bytes = new byte[] { Priority.Physical0, DeviceId.Pcm, DeviceId.Tool, Mode.PCMUploadRequest, Block1, Block2, Block3, Block4, Block5, Block6};
