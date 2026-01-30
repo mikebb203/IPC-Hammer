@@ -36,7 +36,7 @@ namespace PcmHacking
         /// 
         /// If not null, use a number like "004" that matches a release branch.
         /// </summary>
-        private const string AppVersion = "016.9";
+        private const string AppVersion = "016.91";
 
         /// <summary>
         /// We had to move some operations to a background thread for the J2534 code as the DLL functions do not have an awaiter.
@@ -334,6 +334,7 @@ namespace PcmHacking
             this.testipc99.Enabled = false;
             this.TestIPCTB.Enabled = false;
             this.ModifyOptionsTB.Enabled = false;
+            this.Mybttn.Enabled = false;
         }
 
         /// <summary>
@@ -363,6 +364,7 @@ namespace PcmHacking
                 this.testipc99.Enabled = true;
                 this.TestIPCTB.Enabled = true;
                 this.ModifyOptionsTB.Enabled = true;
+                this.Mybttn.Enabled = true;
             });
         }
 
@@ -2337,5 +2339,27 @@ namespace PcmHacking
                 return;
             }
         }
+
+        private void Mybttn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogBoxes.swapBox swapBox = new DialogBoxes.swapBox(this.Vehicle, this);
+                DialogResult dialogResult =swapBox.ShowDialog();
+
+                if (dialogResult == DialogResult.OK)
+                {
+
+                }
+            }
+            catch (Exception exception)
+            {
+                this.AddUserMessage("Swapbox failed: " + exception.ToString());
+            }
+
+
+        }
+
     }
+   
 }
